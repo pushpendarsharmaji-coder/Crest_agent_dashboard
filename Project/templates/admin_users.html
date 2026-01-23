@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Users Management - Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+body { margin:0; font-family:'Roboto',sans-serif; background:#f0f4f8; display:flex; min-height:100vh; }
+.sidebar { width:250px; background:linear-gradient(180deg,#007bff,#00bfff); color:white; display:flex; flex-direction:column; padding:2rem 1rem; position:fixed; top:0; bottom:0; }
+.sidebar h2 { text-align:center; margin-bottom:2rem; }
+.sidebar a { color:white; text-decoration:none; padding:0.7rem 1rem; margin-bottom:0.5rem; border-radius:8px; display:block; transition:0.3s; }
+.sidebar a:hover { background: rgba(255,255,255,0.2); }
+main { margin-left:250px; flex:1; padding:2rem; }
+header { margin-bottom:2rem; font-size:1.5rem; color:#007bff; font-weight:500; }
+table { width:100%; border-collapse:collapse; background:white; border-radius:10px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.05); }
+th, td { padding:1rem; text-align:left; border-bottom:1px solid #eee; }
+th { background:#007bff; color:white; }
+tr:hover { background:#f1f7ff; cursor:pointer; }
+button { padding:0.5rem 1rem; border:none; border-radius:6px; background:#007bff; color:white; cursor:pointer; transition:0.3s; }
+button:hover { background:#0056b3; }
+.modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); justify-content:center; align-items:center; }
+.modal-content { background:white; padding:2rem; border-radius:12px; width:90%; max-width:800px; max-height:90%; overflow-y:auto; }
+.modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; }
+.modal-close { background:#dc3545;color:white;border:none;padding:0.3rem 0.8rem;border-radius:6px;cursor:pointer; }
+.modal-close:hover { background:#c82333; }
+.card { background:white; padding:1rem; border-radius:10px; margin-bottom:1rem; box-shadow:0 4px 10px rgba(0,0,0,0.05); }
+.file-preview-container { display:flex; align-items:center; justify-content:space-between; background:#f8f9fa; border:1px solid #ddd; padding:0.5rem 1rem; border-radius:8px; margin-top:0.5rem; }
+.file-preview-container img { max-width:80px; border-radius:6px; cursor:pointer; }
+.file-preview-container span { font-weight:500; flex:1; padding-left:10px; }
+.file-preview-container button { background:#ffc107;color:#212529;padding:0.3rem 0.8rem;font-size:0.85rem; }
+.file-preview-container button:hover { background:#e0a800; }
+input[type="text"], input[type="date"] { width:100%; padding:0.6rem; border-radius:6px; border:1px solid #ccc; margin-bottom:0.5rem; }
+button.save-btn { background:#28a745; color:white; }
+button.save-btn:hover { background:#218838; }
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>Admin Panel</h2>
+    <a href="/admin/dashboard">Dashboard</a>
+    <a href="/admin/users">Users</a>
+    <a href="/admin/reports">Reports</a>
+    <a href="/admin/logout">Logout</a>
+</div>
+
+<main>
+<header>Users Management</header>
+
+<table id="usersTable">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>PAN</th>
+            <th>Account</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr data-user='{{ user | tojson | safe }}'>
+            <td>{{ user.id }}</td>
+            <td>{{ user.first_name }} {{ user.last_name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.pan or '-' }}</td>
+            <td>{{ user.account or '-' }}</td>
+            <td><button onclick="openModal(this)">View/Edit</button></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</main>
+
+<!-- User Modal (similar to previous admin modal) -->
+<div class="modal" id="userModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>User Details</h2>
+            <button class="modal-close" onclick="document.getElementById('userModal').style.display='none'">Close</button>
+        </div>
+        <form id="adminUserForm">
+            <!-- Form fields (same as previous modal) -->
+        </form>
+    </div>
+</div>
+
+<script>
+// JS: Open modal with user details, edit file, submit form
+function openModal(btn){
+    const row = btn.closest('tr');
+    const userData = JSON.parse(row.dataset.user);
+    const form = document.getElementById('adminUserForm');
+    form.first_name.value = userData.first_name || '';
+    form.middle_name.value = userData.middle_name || '';
+    form.last_name.value = userData.last_name || '';
+    form.email.value = userData.email || '';
+    form.dob.value = userData.dob || '';
+    form.pan.value = userData.pan || '';
+    form.account.value = userData.account || '';
+    form.ifsc.value = userData.ifsc || '';
+    form.bank.value = userData.bank || '';
+    form.branch.value = userData.branch || '';
+    document.getElementById('userModal').style.display='flex';
+}
+</script>
+</body>
+</html>

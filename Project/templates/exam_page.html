@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Marketing Exam</title>
+<style>
+body { font-family: Arial; margin: 20px; }
+.question { margin-bottom: 15px; }
+.hidden { display: none; }
+button { padding: 10px; margin-top: 10px; }
+</style>
+</head>
+
+<body>
+
+<h2>Marketing Exam</h2>
+
+<input type="hidden" id="userEmail" value="{{ email }}">
+
+<div id="questions"></div>
+
+<button onclick="submitExam()">Submit Exam</button>
+
+<div id="otpSection" class="hidden">
+    <h3>Enter OTP</h3>
+    <input type="text" id="otp">
+    <button onclick="verifyOTP()">Verify OTP</button>
+</div>
+
+<div id="downloadSection" class="hidden">
+    <h3>Downloads</h3>
+    <button onclick="downloadAgreement()">Agreement</button>
+    <button onclick="downloadCertificate()">Certificate</button>
+    {% if user.status == "Verified" %}
+{% else %}
+    <span class="badge bg-warning">
+        Certificate available after verification
+    </span>
+{% endif %}
+
+</div>
+
+<script>
+const TOTAL = 50;
+
+const EMAIL = document.getElementById("userEmail").value;
+
+/* ---------------- QUESTIONS ---------------- */
+const QUESTIONS = [
+  {
+    question: "What does POSP stand for?",
+    options: [
+      "Point of Sale Person",
+      "Public Office Sales Partner",
+      "Policy Service Provider",
+      "Professional Sales Officer"
+    ],
+    answer: "a"
+  },
+  {
+    question: "Which authority regulates insurance in India?",
+    options: ["RBI", "SEBI", "IRDAI", "NABARD"],
+    answer: "c"
+  },
+  {
+    question: "In health insurance, the term ‘sub-limit’ refers to:",
+    options: ["Maximum coverage for a particular disease or condition", "Minimum premium to be paid", "Duration of the policy", "Amount paid in case of accidental death"],
+    answer: "a"
+  },
+  {
+    question: "Which document is mandatory for POSP registration?",
+    options: ["Driving License", "PAN Card", "Voter ID", "Passport"],
+    answer: "b"
+  },
+  {
+    question: "Insurance is a contract of?",
+    options: ["Guarantee", "Indemnity", "Bailment", "Agency"],
+    answer: "b"
+  },
+  {
+    question: "Which insurance covers damage to third-party property?",
+    options: ["Life Insurance", "Health Insurance", "Motor Insurance", "Travel Insurance"],
+    answer: "c"
+  },
+  {
+    question: "Which of the following is NOT a function of the IRDAI?",
+    options: ["Regulate insurance companies in India", "Issue insurance policies directly to customers", "Approve insurance products and premium rates", "Protect policyholders’ interests"],
+    answer: "b"
+  },
+  {
+    question: "Who pays the insurance premium?",
+    options: ["Insurer", "Agent", "Policyholder", "Nominee"],
+    answer: "c"
+  },
+  {
+    question: "Under the Insurance Act, 1938, what is the minimum paid-up capital required to start a general insurance company in India?",
+    options: ["₹50 crore", "₹100 crore", "₹200 crore", "₹500 crore"],
+    answer: "c"
+  },
+  {
+    question: "What is the validity of POSP certification?",
+    options: ["1 year", "2 years", "3 years", "5 years"],
+    answer: "c"
+  },
+  {
+    question: "KYC stands for?",
+    options: ["Know Your Client", "Keep Your Customer", "Know Your Contract", "Keep Your Credit"],
+    answer: "a"
+  },
+  {
+    question: "Which insurance is compulsory for motor vehicles in India?",
+    options: ["Comprehensive", "Own Damage", "Third Party", "Personal Accident"],
+    answer: "c"
+  },
+  {
+    question: "Free look period allows policyholder to?",
+    options: ["Transfer policy", "Cancel policy", "Increase sum assured", "Change nominee"],
+    answer: "b"
+  },
+  {
+    question: "Who is responsible for claim settlement?",
+    options: ["Agent", "Policyholder", "Insurer", "IRDAI"],
+    answer: "c"
+  },
+  {
+    question: "Nominee receives policy benefits on?",
+    options: ["Maturity", "Surrender", "Death of insured", "Renewal"],
+    answer: "c"
+  },
+  {
+    question: "Which of the following is true about a POSP under IRDAI guidelines?",
+    options: ["POSPs can collect cash premiums from customers", "POSPs are considered employees of the insurer", "POSPs can only solicit policies for which they are certified", "POSPs can issue insurance policies independently"],
+    answer: "c"
+  },
+  {
+    question: "Health insurance mainly covers?",
+    options: ["Vehicle damage", "Hospital expenses", "Life risk", "Property loss"],
+    answer: "b"
+  },
+  {
+    question: "Which policy pays benefit only on death?",
+    options: ["Term Insurance", "Endowment Policy", "ULIP", "Money Back"],
+    answer: "a"
+  },
+  {
+    question: "Grace period is given for?",
+    options: ["Claim filing", "Premium payment", "Policy transfer", "Nomination"],
+    answer: "b"
+  },
+  {
+    question: "The Insurance Information Bureau (IIB) is primarily responsible for:",
+    options: ["Issuing insurance licenses", "Collecting and analyzing insurance data for policyholders and insurers", "Setting premium rates for all policies", "Managing insurance company investments"],
+    answer: "b"
+  },
+  {
+    question: "What does sum assured mean?",
+    options: ["Premium paid", "Maximum payout", "Bonus amount", "Tax benefit"],
+    answer: "b"
+  },
+  {
+    question: "Which insurance is useful for foreign travel?",
+    options: ["Health", "Life", "Travel", "Motor"],
+    answer: "c"
+  },
+  {
+    question: "ULIP stands for?",
+    options: ["Unit Linked Insurance Plan", "Universal Life Income Plan", "Unified Life Investment Policy", "None"],
+    answer: "a"
+  },
+  {
+    question: "Which of the following would be considered a violation by a POSP?",
+    options: ["Soliciting insurance products for which the POSP is certified", "Misrepresenting policy terms to induce a sale", "Assisting customers in submitting documents to the insurer", "Conducting a training session for fellow POSPs"],
+    answer: "b"
+  },
+  {
+    question: "Which insurance protects business property?",
+    options: ["Life", "Fire", "Health", "Travel"],
+    answer: "b"
+  },
+  {
+    question: "Underwriting means?",
+    options: ["Selling policy", "Risk assessment", "Claim payment", "Policy renewal"],
+    answer: "b"
+  },
+  {
+    question: "Deductible refers to?",
+    options: ["Bonus", "Discount", "Amount paid by insured", "Tax benefit"],
+    answer: "c"
+  },
+  {
+    question: "The ‘free-look period’ under IRDAI guidelines allows a policyholder to:",
+    options: ["Cancel the policy within a certain period and get a full refund", "Modify the nominee details at any time", "Increase the sum assured without underwriting", "Extend the policy automatically"],
+    answer: "a"
+  },
+  {
+    question: "Who can be appointed as nominee?",
+    options: ["Only family", "Only spouse", "Any person", "Only children"],
+    answer: "c"
+  },
+  {
+    question: "Which policy provides accident coverage?",
+    options: ["Life", "Health", "Personal Accident", "Fire"],
+    answer: "c"
+  },
+  {
+    question: "Policy lapse happens when?",
+    options: ["Claim rejected", "Premium not paid", "Policy matured", "Nominee changed"],
+    answer: "b"
+  },
+  {
+    question: "Which of the following is TRUE about ‘Sum Assured’ in life insurance?",
+    options: ["It is the total premium paid by the policyholder", "It is the amount guaranteed to be paid on death or maturity, subject to terms", "It includes only bonuses, not the basic sum", "It refers to the administrative charges deducted from the policy"],
+    answer: "b"
+  },
+  {
+    question: "Who issues the insurance policy document?",
+    options: ["Agent", "Broker", "Insurer", "IRDAI"],
+    answer: "c"
+  },
+  {
+    question: "Which benefit provides tax exemption under insurance?",
+    options: ["Claim", "Premium", "Bonus", "All of the above"],
+    answer: "d"
+  },
+  {
+    question: "Policy revival means?",
+    options: ["Renewal", "Reinstatement of lapsed policy", "Claim settlement", "Surrender"],
+    answer: "b"
+  },
+  {
+    question: "Who bears the insurance risk?",
+    options: ["Agent", "Policyholder", "Insurer", "Nominee"],
+    answer: "c"
+  },
+  {
+    question: "Which policy pays money at regular intervals?",
+    options: ["Term", "Endowment", "Money Back", "Health"],
+    answer: "c"
+  },
+  {
+    question: "Insurance fraud means?",
+    options: ["Late payment", "False claim", "Policy lapse", "Renewal delay"],
+    answer: "b"
+  },
+  {
+    question: "Who is the policyholder?",
+    options: ["Insured person", "Agent", "Insurer", "Nominee"],
+    answer: "a"
+  },
+  {
+    question: "Maturity benefit is paid when?",
+    options: ["On death", "On surrender", "On policy completion", "On renewal"],
+    answer: "c"
+  },
+  {
+    question: "Who approves insurance products in India?",
+    options: ["RBI", "SEBI", "IRDAI", "NABARD"],
+    answer: "c"
+  },
+  {
+    question: "Which insurance covers hospitalisation abroad?",
+    options: ["Life", "Health", "Travel", "Fire"],
+    answer: "c"
+  },
+  {
+    question: "Co-payment means?",
+    options: ["Shared premium", "Shared claim expense", "Agent commission", "Tax rebate"],
+    answer: "b"
+  },
+  {
+    question: "Which policy combines investment and insurance?",
+    options: ["Term", "ULIP", "Health", "Motor"],
+    answer: "b"
+  },
+  {
+    question: "Which document confirms insurance coverage?",
+    options: ["Proposal form", "Policy document", "Receipt", "Cover note"],
+    answer: "b"
+  },
+  {
+    question: "Who receives maturity proceeds?",
+    options: ["Nominee", "Agent", "Policyholder", "Insurer"],
+    answer: "c"
+  },
+  {
+    question: "Insurance premium is based on?",
+    options: ["Age and risk", "Address", "Nominee", "Policy number"],
+    answer: "a"
+  },
+  {
+    question: "Fire insurance covers loss due to?",
+    options: ["Accident", "Fire", "Theft", "Flood"],
+    answer: "b"
+  },
+  {
+    question: "Policy surrender means?",
+    options: ["Claim", "Ending policy before maturity", "Renewal", "Transfer"],
+    answer: "b"
+  },
+  {
+    question: "Accidental death benefit is paid on?",
+    options: ["Natural death", "Maturity", "Accidental death", "Policy lapse"],
+    answer: "c"
+  }
+];
+
+
+/* ---------------- BUILD ANSWER KEY ---------------- */
+const ANSWERS = {};
+QUESTIONS.forEach((q, index) => {
+  ANSWERS["q" + (index + 1)] = q.answer;
+});
+
+/* ---------------- RENDER QUESTIONS ---------------- */
+const qDiv = document.getElementById("questions");
+
+QUESTIONS.forEach((q, index) => {
+  qDiv.innerHTML += `
+    <div class="question">
+      <p><b>Q${index + 1}. ${q.question}</b></p>
+      ${q.options.map((opt, i) => `
+        <label>
+          <input type="radio" name="q${index + 1}" value="${String.fromCharCode(97 + i)}">
+          ${opt}
+        </label><br>
+      `).join("")}
+    </div>
+  `;
+});
+
+/* ---------------- SUBMIT EXAM ---------------- */
+function submitExam() {
+    let score = 0;
+
+    // Calculate score
+    for (let i = 1; i <= TOTAL; i++) {
+        let a = document.querySelector(`input[name="q${i}"]:checked`);
+        if (a && a.value === ANSWERS["q" + i]) score++;
+    }
+
+    // Send score to server
+    fetch("/submit-exam", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: EMAIL, score: score, total_questions: TOTAL })
+    })
+    .then(r => r.json())
+    .then(d => {
+        // Update result section
+        let resultSection = document.getElementById("resultSection");
+        if (!resultSection) {
+            // Create result section if it doesn't exist
+            resultSection = document.createElement("div");
+            resultSection.id = "resultSection";
+            document.body.appendChild(resultSection);
+        }
+
+        // Show score
+        resultSection.innerHTML = `
+            <h3>Exam Result</h3>
+            <p>Total Score: ${score} / ${TOTAL}</p>
+            <p>${d.passed ? "✅ You have been successfull passed the exam! OTP has sent on registered email." : "❌You failed exam. Please try again"}</p>
+        `;
+
+        // Show OTP section if passed
+        if (d.passed) {
+            document.getElementById("otpSection").classList.remove("hidden");
+        }
+    })
+    .catch(err => {
+        console.error("Error submitting exam:", err);
+        alert("Something went wrong. Please try again.");
+    });
+}
+
+
+function verifyOTP() {
+    fetch("/verify-otp_2", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ email: EMAIL, otp: document.getElementById("otp").value })
+    })
+    .then(r => r.json())
+.then(d => {
+    if (d.status === "verified") {
+        alert("OTP Verified");  // Pop-up message
+
+        // Hide OTP input area
+        const otpSection = document.getElementById("otpSection");
+        if (otpSection) otpSection.style.display = "none";
+
+        // Show the download section
+        const downloadSection = document.getElementById("downloadSection");
+        if (downloadSection) downloadSection.classList.remove("hidden");
+    } else {
+        alert("Wrong OTP");
+    }
+});
+
+}
+
+function downloadAgreement() {
+    window.location.href = "/agreement?email=" + encodeURIComponent(EMAIL);
+}
+function downloadCertificate() {
+    window.location.href = "/certificate?email=" + encodeURIComponent(EMAIL);
+}
+</script>
+
+
+</body>
+</html>

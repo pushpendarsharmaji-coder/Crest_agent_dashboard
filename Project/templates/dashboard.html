@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insurance Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* -------- GLOBAL -------- */
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #e8f1ff, #f7faff);
+    display: flex;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Smooth animations */
+button, input, .card, header, .sidebar a {
+    transition: all .35s ease;
+}
+
+/* -------- SIDEBAR -------- */
+.sidebar {
+    width: 250px;
+    background: rgba(0, 88, 255, 0.85);
+    backdrop-filter: blur(10px);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 2.2rem 1rem;
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    border-right: 1px solid rgba(255,255,255,0.15);
+    box-shadow: 4px 0 20px rgba(0,0,0,.1);
+}
+.sidebar h2 {
+    font-size: 1.7rem;
+    font-weight: 700;
+    letter-spacing: .5px;
+    text-align: center;
+    margin-bottom: 2.7rem;
+}
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    padding: .8rem 1rem;
+    font-weight: 500;
+    border-radius: 10px;
+    margin-bottom: .8rem;
+    display: block;
+    background: rgba(255,255,255,.05);
+    border: 1px solid transparent;
+}
+.sidebar a:hover {
+    background: rgba(255,255,255,.25);
+    border-color: rgba(255,255,255,.6);
+    transform: translateX(5px);
+}
+
+/* -------- MAIN CONTENT -------- */
+main {
+    margin-left: 250px;
+    padding: 2rem 2.5rem;
+    flex: 1;
+}
+
+/* -------- HEADER -------- */
+header {
+    background: rgba(255,255,255,.7);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 1.3rem 2rem;
+    box-shadow: 0 8px 20px rgba(0,0,0,.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: drop .7s ease;
+}
+@keyframes drop {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #0052cc;
+    letter-spacing: .5px;
+}
+
+/* -------- VERIFICATION BADGES -------- */
+.status-badge {
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: .9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .7px;
+    box-shadow: 0 4px 10px rgba(0,0,0,.1);
+}
+.status-not_submitted { background:#6c757d; color:#fff; }
+.status-pending        { background:#ffbe0b; color:#212529; }
+.status-verified       { background:#0ead69; color:#fff; }
+.status-rejected       { background:#f94144; color:#fff; }
+
+/* -------- CARDS -------- */
+.card {
+    padding: 1.8rem;
+    background: rgba(255,255,255,.8);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,.5);
+    box-shadow: 0 8px 25px rgba(0,0,0,.07);
+    animation: fade .5s ease;
+}
+@keyframes fade {
+    from { transform: translateY(10px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+.card h3 {
+    margin-top: 0;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #0058ff;
+    border-left: 5px solid #007bff;
+    padding-left: 12px;
+}
+
+/* -------- FORM FIELDS -------- */
+form { display: grid; gap: 1.7rem; }
+label { font-weight: 600; color: #334; margin-bottom: .3rem; }
+input, select {
+    width: 100%;
+    padding: .7rem .9rem;
+    border-radius: 10px;
+    border: 1px solid #cbd1da;
+    background: white;
+    font-size: .95rem;
+}
+input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 4px rgba(0,123,255,.15);
+    outline: none;
+}
+input[disabled] {
+    background: #f1f3f5;
+    color: #6c757d;
+    border-color: #d1d9e1;
+}
+
+/* -------- BUTTONS -------- */
+button {
+    background: linear-gradient(135deg,#007bff,#0056d6);
+    padding: .9rem 1.7rem;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: #fff;
+    letter-spacing: .5px;
+}
+button:hover:not([disabled]) {
+    background: linear-gradient(135deg,#0056d6,#003fa6);
+    transform: translateY(-2px);
+}
+button:active { transform: translateY(1px); }
+
+/* Edit button */
+.edit-btn {
+    background: linear-gradient(135deg,#ffc107,#ff9f06);
+    color: #212529;
+}
+
+/* -------- FILE PREVIEW -------- */
+.file-preview-container {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#ffffff;
+    border:1px solid #d1d9e1;
+    padding:.6rem 1rem;
+    border-radius:12px;
+    margin-top:.6rem;
+}
+.file-preview-container img {
+    max-width:110px;
+    border-radius:10px;
+    border:1px solid #adb5bd;
+}
+.file-preview-container span {
+    font-weight:600;
+    color:#002b5b;
+    flex:1;
+    margin-left:12px;
+}
+
+/* -------- STATUS MESSAGES -------- */
+.success-msg, .error-msg {
+    padding: .9rem 1rem;
+    border-radius: 10px;
+    font-weight: 600;
+    display: none;
+}
+.success-msg { background:#d4edda; color:#0d6832; }
+.error-msg { background:#ffe3e3; color:#d00000; }
+
+/* -------- RESPONSIVE -------- */
+@media(max-width: 768px) {
+    .sidebar { width:100%; height:auto; flex-direction:row; overflow-x:auto; border-radius:0; position:relative; }
+    .sidebar h2 { display:none; }
+    main { margin-left:0; padding:1.2rem; }
+    header { flex-direction:column; gap:8px; text-align:center; }
+}
+
+/* ----- PROFILE PHOTO RIGHT CORNER ----- */
+.profile-pic-container {
+    margin-left: auto;
+}
+
+.profile-pic {
+    width: 200px;
+    height: 200px;
+    border-radius: 40%;
+    object-fit: cover;
+    border: 3px solid #1b0505;
+    box-shadow: 0 8px 20px rgba(0,0,0,.15);
+    cursor: pointer;
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.profile-pic:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 16px rgba(0,0,0,.2);
+}
+
+.header-left, .header-center, .header-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-left { flex: 1; justify-content: flex-start; }
+.header-center { flex: 1; }
+.header-right { flex: 1; justify-content: flex-end; }
+
+.status-label {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #444;
+}
+
+.status-label strong {
+    color: #2575fc;   /* blue */
+}
+
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.sidebar-logo {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 5px;
+    border-radius: 50%;
+    background-color: #c90a0a; /* optional background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 0.5px solid;
+}
+
+.sidebar-logo img {
+    width: 140px;
+    max-width: 100%;
+}
+
+.sidebar a {
+    color: #fff;
+    text-decoration: none;
+    margin: 8px 0;
+    display: block;
+}
+
+.sidebar a:hover {
+    color: #6bb6ff;
+}
+
+.sidebar-footer {
+    margin-top: auto; /* pushes it to the bottom */
+    font-size: 12px;
+    color: #bbb;
+    text-align: center;
+    line-height: 1.5;
+}
+/* Show/Hide Tabs */
+.show {
+    display: block;
+}
+.hide {
+    display: none;
+}
+
+/* Training & Exam Tab Styles */
+#trainingExamTab {
+    background-color: #1035ad;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#trainingExamTab h3 {
+    color: #f1f6f2;
+    margin-bottom: 15px;
+    font-family: Arial, sans-serif;
+}
+
+/* Menu Styling */
+.training-menu {
+    list-style: none;  /* Remove bullets */
+    padding: 0;
+    margin: 0;
+}
+
+.training-menu li {
+    margin-bottom: 10px;
+}
+
+.training-menu li a {
+    display: inline-block;
+    text-decoration: none;
+    color: #da8c32;
+    font-weight: 600;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.training-menu li a:hover {
+    background-color: #df7e2e;
+    color: #921111;
+}
+
+
+</style>
+
+</head>
+<body>
+
+<div class="sidebar">
+    <!-- Logo Section -->
+    <div class="sidebar-logo">
+        <img src="/static/images/crest_logo.png" alt="Crest Insure Logo">
+    </div>
+
+    <!-- Navigation -->
+    <h2>Crest Insure</h2>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/policies">My Policies</a>
+    <a href="/claims">Claims</a>
+    <a href="/profile">Profile</a>
+    <a href="/logout">Logout</a>
+        <!-- Training & Exam Tab -->
+    <div id="trainingExamTab"
+        class="{% if user and user.status == 'Verified' %}show{% else %}hide{% endif %}">
+        <h3>Training & Exam</h3>
+        <ul>
+            <li><a href="{{ url_for('training_page') }}">Training</a></li>
+        </ul>
+    </div>
+    <!-- Address at Bottom -->
+    <div class="sidebar-footer">
+        <p>
+            Crest Insurance Brokers Pvt. Ltd.<br>
+            1st Floor, Plot-65, Landmark House<br>
+            Sector-44, Gurugram – 122003<br>
+        </p>
+        
+    </div>
+</div>
+
+
+<main>
+<header>
+    <div class="header-left">
+        <h1>Hello, {{ user.first_name }}!</h1>
+    </div>
+        <div class="header-right profile-pic-container">
+        <!-- Profile Photo Preview -->
+        <img id="profilePreview"
+             src="{% if user.profile_photo %}{{ url_for('static', filename=user.profile_photo.replace('static/', '')) }}{% else %}{{ url_for('static', filename='uploads/default.jpg') }}{% endif %}"
+             alt="Profile Photo"
+             class="profile-pic">
+    </div>
+
+</header>
+
+<div class="card">
+    <h3>Agent Information</h3>
+    <label>Agent Code</label>
+    <input type="text" id="agentCode" value="{{ user.agent_code or 'Not Assigned' }}" disabled>
+
+    <label>Status</label>
+    <input type="text" id="profileStatus" value="{{ user.status }}" disabled>
+
+    <label>Date of Joining</label>
+    <input type="date" id="doj" value="{{ user.doj or '' }}" disabled>
+
+
+</div>
+
+
+<form id="dashboardForm" enctype="multipart/form-data">
+    <!-- Personal Info -->
+    <div class="card">
+        <h3>Personal Info</h3>
+        <label>First Name</label>
+        <input type="text" name="first_name" value="{{ user.first_name or '' }}">
+
+        <label>Middle Name</label>
+        <input type="text" name="middle_name" value="{{ user.middle_name or '' }}">
+    
+        <label>Last Name</label>
+        <input type="text" name="last_name" value="{{ user.last_name or '' }}">
+        <label>Email</label>
+        <input type="email" value="{{ user.email }}" readonly>
+        <label>Mobile</label>
+        <input type="text" value="{{ user.mobile }}" readonly>
+
+        <label>Date of Birth</label>
+        <input type="date" name="dob" value="{{ user.dob or '' }}">
+        <label>Address</label>
+        <input type="text" name="address" value="{{ user.address or '' }}">
+        <label>PIN Code</label>
+        <input type="text" name="pincode" value="{{ user.pincode or '' }}">
+        
+
+        <!-- State Dropdown -->
+        <label>State</label>
+        <select id="stateSelect" name="state" onchange="toggleStateInput()" required>
+            <option value="">-- Select State --</option>
+            {% for s in states %}
+                <option value="{{ s }}" {% if user.state == s %}selected{% endif %}>{{ s }}</option>
+            {% endfor %}
+            <option value="other" {% if user.state not in states %}selected{% endif %}>Other (Enter manually)</option>
+        </select>
+        <input type="text" id="stateInput" name="state_input" placeholder="Enter state"
+               style="display: none; margin-top:5px;"
+               value="{% if user.state not in states %}{{ user.state }}{% endif %}">
+
+        <!-- Manager Dropdown -->
+        <label>Manager Name</label>
+        <select id="managerSelect" name="manager_name_select" onchange="toggleManagerInput()" required>
+            <option value="">-- Select Manager --</option>
+            {% for m in managers %}
+                <option value="{{ m }}" {% if user.manager_name == m %}selected{% endif %}>{{ m }}</option>
+            {% endfor %}
+            <option value="other" {% if user.manager_name not in managers %}selected{% endif %}>Other (Enter manually)</option>
+        </select>
+        <input type="text" id="managerInput" name="manager_name" placeholder="Enter Manager Name"
+               style="display:none; margin-top:5px;"
+               value="{% if user.manager_name not in managers %}{{ user.manager_name }}{% endif %}">
+
+        <label>Employee ID</label>
+        <input type="text" name="emp_id" value="{{ user.emp_id or '' }}">
+    </div>
+
+    <!-- Bank Info -->
+    <div class="card">
+        <h3>Bank Info</h3>
+        <label>PAN</label>
+        <input type="text" name="pan" value="{{ user.pan or '' }}">
+        <label>Account Number</label>
+        <input type="text" name="account" value="{{ user.account or '' }}">
+        <label>Re-enter Account Number</label>
+        <input type="text" name="reAccount" value="{{ user.re_account or '' }}">
+        <label>IFSC</label>
+        <input type="text" name="ifsc" value="{{ user.ifsc or '' }}">
+        <label>Bank Name</label>
+        <input type="text" name="bank" value="{{ user.bank or '' }}">
+        <label>Branch</label>
+        <input type="text" name="branch" value="{{ user.branch or '' }}">
+
+                        <!-- profile Photo -->
+            {% if user.profile_photo %}
+            <div class="file-preview-container">
+                <img src="{{ url_for('static', filename=user.profile_photo.split('static/')[1]) }}">
+                <span>Profile_photo</span>
+                <button type="button" onclick="editFile(this, 'doc1')">Edit</button>
+            </div>
+            <input type="file" name="doc1" style="display:none;">
+            {% else %}
+            <label>Profile Photo</label>
+            <input type="file" name="doc1">
+            {% endif %}
+
+        
+<!-- Bank Proof -->
+{% if user.bank_proof %}
+<div class="file-preview-container">
+    {% set ext = user.bank_proof.split('.')[-1].lower() %}
+    {% if ext in ['jpg', 'jpeg', 'png', 'gif'] %}
+        <img src="{{ url_for('static', filename=user.bank_proof.split('static/')[1]) }}" alt="Bank Proof" style="max-width:150px;">
+    {% else %}
+        <a href="{{ url_for('static', filename=user.bank_proof.split('static/')[1]) }}" target="_blank">Bank Proof (View)</a>
+    {% endif %}
+    <button type="button" onclick="editFile(this, 'doc4')">Edit</button>
+</div>
+<input type="file" name="doc4" style="display:none;">
+{% else %}
+<label>Bank Proof</label>
+<input type="file" name="doc4">
+{% endif %}
+
+    
+<div class="card">
+    <h3>Other Documents</h3>
+    {% for field, label, file in [
+        ('doc2','PAN Document', user.pan_doc),
+        ('doc3','Address Proof', user.address_proof),
+        ('doc5','Education Certificate', user.education_cert)
+    ] %}
+        {% if file %}
+        <div class="file-preview-container">
+            {% set ext = file.split('.')[-1].lower() %}
+            {% if ext in ['jpg','jpeg','png','gif'] %}
+                <img src="{{ url_for('static', filename=file.split('static/')[1]) }}" alt="{{ label }}" style="max-width:150px;">
+            {% else %}
+                <a href="{{ url_for('static', filename=file.split('static/')[1]) }}" target="_blank">{{ label }} (View)</a>
+            {% endif %}
+            <button type="button" onclick="editFile(this, '{{ field }}')">Edit</button>
+        </div>
+        <input type="file" name="{{ field }}" style="display:none;">
+        {% else %}
+        <label>{{ label }}</label>
+        <input type="file" name="{{ field }}">
+        {% endif %}
+    {% endfor %}
+</div>
+
+
+    {% if user.status != "Verified" %}
+    <button id="saveBtn" type="submit">Save</button>
+    {% endif %}
+
+    <div class="success-msg">Profile updated successfully!</div>
+    <div class="error-msg">Error updating profile.</div>
+
+    {% if user.status %}
+    <p class="status-label">
+        Status: <strong>{{ user.status }}</strong>
+    </p>
+    {% endif %}
+</form>
+
+<script>
+// File input edit
+function editFile(btn, field){
+    const container = btn.parentElement;
+    container.style.display="none";
+    container.nextElementSibling.style.display="block";
+}
+
+// AJAX form submit
+document.getElementById("dashboardForm").addEventListener("submit", async e => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    try {
+        const r = await fetch("/dashboard", { method:"POST", body: formData });
+        const d = await r.json();
+        if(d.success){
+            document.querySelector(".success-msg").style.display="block";
+            setTimeout(()=>location.reload(), 1400);
+        } else throw new Error(d.error);
+    } catch(err){
+        document.querySelector(".error-msg").style.display="block";
+        document.querySelector(".error-msg").innerText="❌ "+err.message;
+    }
+});
+
+// Toggle State input
+function toggleStateInput() {
+    const dropdown = document.getElementById("stateSelect");
+    const input = document.getElementById("stateInput");
+    if (dropdown.value === "other") {
+        input.style.display = "block";
+        input.required = true;
+    } else {
+        input.style.display = "none";
+        input.required = false;
+    }
+}
+
+// Toggle Manager input
+function toggleManagerInput() {
+    const dropdown = document.getElementById("managerSelect");
+    const input = document.getElementById("managerInput");
+    if (dropdown.value === "other") {
+        input.style.display = "block";
+        input.required = true;
+    } else {
+        input.style.display = "none";
+        input.required = false;
+    }
+}
+
+
+
+// Poll backend for user info
+function updateUserInfo() {
+    const trainingExamTab = document.getElementById("trainingExamTab");
+
+    fetch("/get_user_info")
+        .then(res => res.json())
+        .then(data => {
+            console.log("User info fetched:", data);  // ← debug line
+            if (data.error) return;
+
+            document.getElementById("agentCode").value = data.agent_code || "Not Assigned";
+            document.getElementById("profileStatus").value = data.status;
+            document.getElementById("doj").value = data.doj || "";
+
+            trainingExamTab.style.display = data.status === "Verified" ? "block" : "none";
+        })
+        .catch(err => console.error("Error fetching user info:", err));
+}
+
+// Run every 5 seconds and on load
+setInterval(updateUserInfo, 5000);
+window.onload = function(){
+    toggleStateInput();
+    toggleManagerInput();
+    updateUserInfo();
+};
+</script>
+
+</body>
+</html>

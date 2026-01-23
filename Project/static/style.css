@@ -1,0 +1,196 @@
+
+/* ====== GLOBAL ====== */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f4f4f9;
+}
+
+/* ====== SIDEBAR ====== */
+.sidebar {
+    width: 200px;
+    background: #2c3e50;
+    color: white;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+    overflow-y: auto; /* prevents clipping */
+}
+
+.sidebar a {
+    display: block;
+    color: white;
+    padding: 15px 20px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.sidebar a:hover {
+    background: #34495e;
+}
+
+/* ====== MAIN AREA ====== */
+.main {
+    margin-left: 200px; /* matches sidebar width */
+    padding: 30px;
+    min-height: 100vh;
+}
+
+/* ====== CARDS & UI ELEMENTS ====== */
+.card, .form-card {
+    background: white;
+    padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+h2 {
+    margin-top: 0;
+    color: #2c3e50;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* ====== BUTTONS ====== */
+button {
+    padding: 12px;
+    width: 100%;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(135deg,#6a11cb,#2575fc);
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: .2s ease;
+}
+
+button:hover {
+    opacity: .9;
+}
+
+.back-btn {
+    margin-top: 10px;
+    background: #999;
+}
+
+/* ====== MULTI-STEP FORM ====== */
+.step { display: none; }
+.step.active { display: block; }
+
+/* ====== DOCUMENT DISPLAY ====== */
+.doc-box {
+    background:#f9f9f9;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:15px;
+}
+
+.doc-title {
+    font-weight:bold;
+    margin-bottom:8px;
+    color:#333;
+}
+
+.doc-box img {
+    max-width:200px;
+    border-radius:8px;
+}
+
+
+/* ====== DOCUMENT UPLOAD LAYOUT ====== */
+.doc-form {
+    max-width: 700px;
+}
+
+.doc-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 12px 15px;
+    background: #f9fafc;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #e2e6ef;
+    transition: 0.2s ease;
+}
+
+.doc-row:hover {
+    background: #eef2ff;
+    border-color: #c7d2fe;
+}
+
+.doc-row label {
+    width: 230px;
+    font-weight: 600;
+    color: #333;
+}
+
+.doc-row input[type="file"] {
+    flex: 1;
+    cursor: pointer;
+}
+
+.doc-row input[type="file"]::file-selector-button {
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: none;
+    background: linear-gradient(135deg,#6a11cb,#2575fc);
+    color: white;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.doc-row input[type="file"]::file-selector-button:hover {
+    opacity: 0.9;
+}
+
+/* ====== NAME ROW ====== */
+.name-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.name-row input {
+    flex: 1;
+}
+
+/* ====== BANK DETAILS ====== */
+.bank-details input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.bank-details input[readonly] {
+    background-color: #f0f0f0;
+}
+
+
+.preview-box {
+    margin-top: 10px;
+    width: 160px;
+    height: auto;
+    border: 1px solid #ddd;
+    padding: 5px;
+    border-radius: 6px;
+    background: #fafafa;
+}
+.preview-box img,
+.preview-box iframe {
+    width: 100%;
+    border-radius: 6px;
+}

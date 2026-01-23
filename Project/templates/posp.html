@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Become a POSP Insurance Agent</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+<header class="site-header">
+    <div class="header-container">
+        <!-- Logo -->
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/crest_logo.png') }}" alt="Crest Insure">
+            <span class="logo-text">
+                <span class="crest-text">Crest</span> Insure
+            </span>
+        </div>
+
+
+        <!-- Navigation -->
+        <nav class="nav-links">
+            <a href="#benefits">Benefits</a>
+            <a href="#products">Products</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#contact">Contact</a>
+        </nav>
+
+        <!-- Auth Buttons -->
+        <div class="auth-buttons">
+            <a href="{{ url_for('login') }}" class="btn-login">Agent Login</a>
+            <a href="{{ url_for('signup') }}" class="btn-signup">Sign Up</a>
+        </div>
+    </div>
+</header>
+<style>.site-header {
+    position: sticky;
+    top: 0;
+    background: #ffffff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    z-index: 1000;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo img {
+    width: 82px;
+    height: 82px;
+    border-radius: 50%;
+}
+
+.logo-text {
+    font-size: 20px;
+    font-weight: 800;
+    color: #000000; /* Insure color */
+}
+
+.crest-text {
+    color: #2a7cff; /* Crest color */
+    font-weight: 800;
+}
+
+
+
+/* NAV */
+.nav-links a {
+    margin: 0 12px;
+    text-decoration: none;
+    font-weight: 500;
+    color: #333;
+}
+
+.nav-links a:hover {
+    color: #2a7cff;
+}
+
+/* AUTH BUTTONS */
+.auth-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-login {
+    padding: 8px 16px;
+    border: 1px solid #2a7cff;
+    color: #2a7cff;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn-login:hover {
+    background: #2a7cff;
+    color: #fff;
+}
+
+.btn-signup {
+    padding: 9px 18px;
+    background: #2a7cff;
+    color: #fff;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn-signup:hover {
+    background: #1e5fd6;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+    .nav-links {
+        display: none;
+    }
+}
+</style>
+
+<body>
+<style>body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f9fbff;
+    color: #222;
+}
+
+/* HERO */
+.hero {
+    display: flex;
+    justify-content: space-between;
+    padding: 60px 10%;
+    background: linear-gradient(90deg, #fef1f6, #fff7e6);
+}
+
+.hero-content {
+    max-width: 520px;
+}
+
+.hero h1 span {
+    color: #2a7cff;
+}
+
+.hero-form {
+    display: flex;
+    margin: 20px 0;
+}
+
+.hero-form input {
+    padding: 12px;
+    flex: 1;
+    border: 1px solid #ccc;
+}
+
+.hero-form button {
+    padding: 12px 20px;
+    border: none;
+    background: #2a7cff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.hero-qr img {
+    width: 120px;
+}
+
+/* BENEFITS */
+.benefits {
+    padding: 60px 10%;
+    text-align: center;
+}
+
+.benefit-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.benefit-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* PRODUCTS */
+.products {
+    padding: 60px 10%;
+    background: #fff;
+    text-align: center;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+}
+
+.product-card {
+    background: #f0f5ff;
+    padding: 30px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+/* POSP INFO */
+.posp-info {
+    padding: 60px 10%;
+    background: linear-gradient(180deg, #e9f7ff, #fff);
+}
+
+.posp-box {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+}
+
+.posp-box img {
+    width: 140px;
+}
+
+/* FOOTER */
+footer {
+    background: #000;
+    color: #fff;
+    text-align: center;
+    padding: 15px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .benefit-grid,
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .posp-box {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+.why-us {
+    padding: 60px 10%;
+    background: #f7fbff;
+    text-align: center;
+}
+
+.why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.why-card {
+    background: #fff;
+    padding: 18px;
+    border-radius: 10px;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.product-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 25px 15px;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.product-card i {
+    font-size: 36px;
+    color: #2a7cff;
+    margin-bottom: 12px;
+}
+
+.product-card span {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(42,124,255,0.25);
+}
+
+</style>
+
+
+
+
+<!-- HERO SECTION -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Become a <span>POSP Insurance Agent</span></h1>
+        <p>Earn unlimited income by selling insurance online</p>
+
+        <div class="hero-form">
+            <input type="text" placeholder="Enter Mobile Number">
+            <button>Start Earning Now</button>
+        </div>
+
+        <small>By continuing, you agree to our Terms & Conditions</small>
+    </div>
+
+    <div class="hero-qr">
+        <img src="qr.png" alt="QR Code">
+        <p>Scan to Download App</p>
+    </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits">
+    <h2>Benefits of Becoming POSP Agent</h2>
+
+    <div class="benefit-grid">
+        <div class="benefit-card">
+            <h3>Training Support</h3>
+            <p>Expert guidance & certification</p>
+        </div>
+        <div class="benefit-card">
+            <h3>Instant Policies</h3>
+            <p>Quick and hassle-free issuance</p>
+        </div>
+        <div class="benefit-card">
+            <h3>Dedicated RM</h3>
+            <p>Personal relationship manager</p>
+        </div>
+        <div class="benefit-card">
+            <h3>Timely Payouts</h3>
+            <p>Guaranteed commissions</p>
+        </div>
+    </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products">
+    <h2>What You Can Sell</h2>
+
+<div class="product-grid">
+    <div class="product-card">
+        <i class="fa-solid fa-heart-pulse"></i>
+        <span>Health Insurance</span>
+    </div>
+
+    <div class="product-card">
+        <i class="fa-solid fa-car"></i>
+        <span>Car Insurance</span>
+    </div>
+
+    <div class="product-card">
+        <i class="fa-solid fa-motorcycle"></i>
+        <span>Bike Insurance</span>
+    </div>
+
+    <div class="product-card">
+        <i class="fa-solid fa-shield-heart"></i>
+        <span>Life Insurance</span>
+    </div>
+
+    <div class="product-card">
+        <i class="fa-solid fa-plane-departure"></i>
+        <span>Travel Insurance</span>
+    </div>
+</div>
+
+</section>
+
+<!-- POSP INFO -->
+<section class="posp-info">
+    <div class="posp-container">
+
+        <div class="posp-box">
+            <div class="posp-icon">
+                <img src="{{ url_for('static', filename='images/partners/agent.png') }}" alt="POSP Agent">
+            </div>
+
+            <div class="posp-content">
+                <h2>What is <span>POSP?</span></h2>
+                <p>
+                    A <b>Point of Sales Person (POSP)</b> is an IRDAI-certified insurance agent
+                    authorized to sell insurance policies digitally.
+                </p>
+
+                <ul class="posp-points">
+                    <li>✔ Work 100% online</li>
+                    <li>✔ No office or paperwork required</li>
+                    <li>✔ Earn high commissions</li>
+                    <li>✔ Sell policies from top insurers</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</section>
+<style>
+    .posp-info {
+    padding: 90px 20px;
+    background: linear-gradient(135deg, #0f172a, #020617);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Soft glow */
+.posp-info::before {
+    content: "";
+    position: absolute;
+    width: 550px;
+    height: 550px;
+    background: radial-gradient(circle, rgba(37,99,235,0.35), transparent 70%);
+    top: -150px;
+    left: -150px;
+}
+
+.posp-container {
+    max-width: 2000px;
+    margin: auto;
+}
+
+.posp-box {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 18px;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+}
+
+/* Icon */
+.posp-icon {
+    background: linear-gradient(135deg, #2563eb, #22c55e);
+    padding: 18px;
+    border-radius: 50%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.posp-icon img {
+    width: 90px;
+    height: 90px;
+}
+
+/* Content */
+.posp-content h2 {
+    font-size: 34px;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 12px;
+}
+
+.posp-content h2 span {
+    background: linear-gradient(90deg, #60a5fa, #22c55e);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.posp-content p {
+    color: #cbd5f5;
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+/* Bullet Points */
+.posp-points {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(180px, 1fr));
+    gap: 10px;
+}
+
+.posp-points li {
+    font-size: 14px;
+    color: #e2e8f0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .posp-box {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .posp-points {
+        grid-template-columns: 1fr;
+    }
+}
+
+</style>
+
+<section class="why-us">
+    <h2>Why Choose Crest Insure?</h2>
+
+    <div class="why-grid">
+        <div class="why-card">IRDAI Authorized POSP Model</div>
+        <div class="why-card">100% Digital & Paperless Process</div>
+        <div class="why-card">No Office Visit Required</div>
+        <div class="why-card">Sell Policies from Anywhere</div>
+        <div class="why-card">Zero Investment – Free Registration</div>
+        <div class="why-card">Fast Claim Support for Customers</div>
+    </div>
+</section>
+<section class="eligibility">
+    <h2>Who Can Become a POSP Agent?</h2>
+
+    <ul class="eligibility-list">
+        <li>✔ Age 18 years or above</li>
+        <li>✔ Minimum 10th pass</li>
+        <li>✔ Smartphone & Internet connection</li>
+        <li>✔ Pan Card & Aadhaar Card</li>
+        <li>✔ Passion to earn & grow</li>
+    </ul>
+</section>
+<style>.eligibility {
+    padding: 60px 10%;
+    background: #fff;
+}
+
+.eligibility-list {
+    max-width: 600px;
+    margin: auto;
+    font-size: 18px;
+    line-height: 2;
+}
+</style>
+
+<section class="how-it-works">
+    <h2>How It Works</h2>
+
+    <div class="steps">
+        <div class="step">1️⃣ Register using Mobile Number</div>
+        <div class="step">2️⃣ Complete POSP Training</div>
+        <div class="step">3️⃣ Pass Certification Exam</div>
+        <div class="step">4️⃣ Get Agent Code</div>
+        <div class="step">5️⃣ Start Selling & Earning</div>
+    </div>
+</section>
+<style>.how-it-works {
+    padding: 60px 10%;
+    background: #eef5ff;
+    text-align: center;
+}
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+}
+
+.step {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+</style>
+
+<section class="earnings">
+    <h2>How Much Can You Earn?</h2>
+    <p class="earn-text">
+        Earn <b>₹20,000 – ₹50,000+</b> per month depending on your efforts.
+    </p>
+
+    <div class="earn-grid">
+        <div>💰 High Commission</div>
+        <div>📈 No Income Limit</div>
+        <div>🏆 Performance Rewards</div>
+        <div>🎯 Monthly Incentives</div>
+    </div>
+</section>
+<style>.earnings {
+    padding: 60px 10%;
+    background: #fff7e6;
+    text-align: center;
+}
+
+.earn-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    font-weight: 600;
+}
+</style>
+
+
+<section class="cta">
+    <h2>Start Your Insurance Career Today</h2>
+    <p>No Fees • No Risk • Unlimited Earnings</p>
+    <button class="cta-btn onclick="window.location.href={ url_for('signup') }">Register Now</button>
+</section>
+<style>.cta {
+    padding: 60px 10%;
+    background: #2a7cff;
+    color: #fff;
+    text-align: center;
+}
+
+.cta-btn {
+    margin-top: 15px;
+    padding: 14px 30px;
+    border: none;
+    background: #fff;
+    color: #2a7cff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 25px;
+}
+</style>
+
+<section class="partners-section">
+    <h2>Our Trusted Insurance Partners</h2>
+
+    <div class="partners-grid">
+
+    <!-- GENERAL / HEALTH -->
+    <a href="https://www.acko.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/acko.svg') }}" alt="ACKO">
+    </a>
+
+    <a href="https://www.bajajallianz.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/bajaj-allianz.svg') }}" alt="Bajaj Allianz">
+    </a>
+
+    <a href="https://www.bhartiaxa.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/bharti-axa.svg') }}" alt="Bharti AXA">
+    </a>
+
+    <a href="https://www.careinsurance.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/care-health.svg') }}" alt="Care Health">
+    </a>
+
+    <a href="https://www.cholainsurance.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/chola-ms.png') }}" alt="Chola MS">
+    </a>
+
+    <a href="https://general.futuregenerali.in/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/future-generali.svg') }}" alt="Future Generali">
+    </a>
+
+    <a href="https://www.godigit.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/digit.svg') }}" alt="Digit">
+    </a>
+
+    <a href="https://www.hdfclife.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/hdfc-life.png') }}" alt="HDFC Life">
+    </a>
+
+    <a href="https://www.hdfcergo.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/hdfc-ergo.png') }}" alt="HDFC ERGO">
+    </a>
+
+    <a href="https://www.icicilombard.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/icici-lombard.png') }}" alt="ICICI Lombard">
+    </a>
+
+    <a href="https://www.iciciprulife.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/icici-prudential.svg') }}" alt="ICICI Prudential">
+    </a>
+
+    <!-- LIFE / PSU -->
+    <a href="https://www.iffcotokio.co.in/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/iffco-tokio.png') }}" alt="IFFCO Tokio">
+    </a>
+
+    <a href="https://www.kotakgeneral.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/zurich-kotak.webp') }}" alt="Zurich Kotak">
+    </a>
+
+    <a href="https://www.libertyinsurance.in/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/liberty.avif') }}" alt="Liberty">
+    </a>
+
+    <a href="https://licindia.in/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/lic.svg') }}" alt="LIC">
+    </a>
+
+    <a href="https://www.magmahdi.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/magma-hdi.svg') }}" alt="Magma HDI">
+    </a>
+
+    <a href="https://www.manipalcigna.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/manipal-cigna.png') }}" alt="Manipal Cigna">
+    </a>
+
+    <a href="https://www.maxlifeinsurance.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/max-life.svg') }}" alt="Max Life">
+    </a>
+
+    <a href="https://nationalinsurance.nic.co.in/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/national-insurance.svg') }}" alt="National Insurance">
+    </a>
+
+    <a href="https://www.naviinsurance.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/navi.svg') }}" alt="Navi">
+    </a>
+
+    <a href="https://www.newindia.co.in/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/new-india.png') }}" alt="New India Assurance">
+    </a>
+
+    <a href="https://orientalinsurance.org.in/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/oriental.png') }}" alt="Oriental Insurance">
+    </a>
+
+    <a href="https://www.rahejaqbe.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/raheja-qbe.jpg') }}" alt="Raheja QBE">
+    </a>
+
+    <!-- OTHERS -->
+    <a href="https://www.reliancegeneral.co.in/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/reliance.webp') }}" alt="Reliance General">
+    </a>
+
+    <a href="https://www.royalsundaram.in/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/royal-sundaram.png') }}" alt="Royal Sundaram">
+    </a>
+
+    <a href="https://www.sbigeneral.in/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/sbi-general.svg') }}" alt="SBI General">
+    </a>
+
+    <a href="https://www.shriramgi.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/shriram.svg') }}" alt="Shriram General">
+    </a>
+
+    <a href="https://www.starhealth.in/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/star-health.svg') }}" alt="Star Health">
+    </a>
+
+    <a href="https://www.tataaia.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/tata-aia.svg') }}" alt="TATA AIA">
+    </a>
+
+    <a href="https://www.tataaig.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/tata-aig.svg') }}" alt="TATA AIG">
+    </a>
+
+    <a href="https://uiic.co.in/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/united-india.png') }}" alt="United India">
+    </a>
+
+    <a href="https://www.universalsompo.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/universal-sompo.svg') }}" alt="Universal Sompo">
+    </a>
+
+    <!-- ZUNO -->
+    <a href="https://www.hizuno.com/" target="_blank" class="partner-card">
+        <img src="{{ url_for('static', filename='images/partners/zuno.svg') }}" alt="Zuno Insurance">
+    </a>
+
+</div>
+
+</section>
+<style>
+/* ===============================
+   INSURANCE PARTNERS – PREMIUM
+================================ */
+
+.partners-section {
+    padding: 100px 20px;
+    background:
+        radial-gradient(circle at top left, rgba(37,99,235,0.08), transparent 40%),
+        radial-gradient(circle at bottom right, rgba(16,185,129,0.08), transparent 40%),
+        linear-gradient(135deg, #f9fafb 0%, #eef2f7 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Floating glow blobs */
+.partners-section::before,
+.partners-section::after {
+    content: "";
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    filter: blur(60px);
+    z-index: 0;
+}
+
+.partners-section::before {
+    top: -120px;
+    left: -120px;
+    background: rgba(59,130,246,0.35);
+}
+
+.partners-section::after {
+    bottom: -120px;
+    right: -120px;
+    background: rgba(16,185,129,0.35);
+}
+
+/* ===============================
+   HEADING
+================================ */
+
+.partners-section h2 {
+    position: relative;
+    z-index: 1;
+    font-size: 38px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    color: #0f172a;
+    margin-bottom: 10px;
+}
+
+.partners-section h2 span {
+    background: linear-gradient(90deg, #2563eb, #22c55e);
+    background-clip: text;           /* Standard */
+    -webkit-background-clip: text;   /* Chrome / Safari */
+    color: transparent;
+}
+
+
+.partners-section p {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 0 auto 50px;
+    font-size: 17px;
+    line-height: 1.7;
+    color: #475569;
+}
+
+/* ===============================
+   GRID
+================================ */
+
+.partners-grid {
+    position: relative;
+    z-index: 1;
+    max-width: 1300px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 22px;
+}
+
+/* ===============================
+   CARD
+================================ */
+
+.partner-link {
+    text-decoration: none;
+}
+
+.partner-card {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(10px);
+    border-radius: 14px;
+    padding: 22px 16px;
+    min-height: 75px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(0,0,0,0.06);
+    box-shadow:
+        0 10px 25px rgba(0,0,0,0.08),
+        inset 0 0 0 1px rgba(255,255,255,0.6);
+
+    transition: all 0.35s cubic-bezier(.4,0,.2,1);
+}
+
+/* Logo */
+.partner-card img {
+    max-width: 130px;
+    max-height: 45px;
+    object-fit: contain;
+    filter: grayscale(100%) brightness(0.9);
+    transition: all 0.35s ease;
+}
+
+/* ===============================
+   HOVER MAGIC ✨
+================================ */
+
+.partner-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    border-color: rgba(37,99,235,0.5);
+    box-shadow:
+        0 25px 50px rgba(37,99,235,0.25),
+        inset 0 0 0 1px rgba(255,255,255,0.7);
+    background: #ffffff;
+}
+
+.partner-card:hover img {
+    filter: grayscale(0%) brightness(1);
+}
+
+/* ===============================
+   MOBILE TWEAKS
+================================ */
+
+@media (max-width: 640px) {
+    .partners-section h2 {
+        font-size: 28px;
+    }
+
+    .partners-section p {
+        font-size: 15px;
+    }
+
+    .partner-card {
+        padding: 18px 12px;
+    }
+}
+</style>
+<footer class="site-footer">
+
+    <div class="footer-container">
+
+        <!-- COMPANY INFO -->
+        <div class="footer-col">
+            <h4>
+                <i class="fa-solid fa-location-dot"></i>
+                Crest Insurance Brokers Pvt. Ltd.
+            </h4>
+
+            <p>
+                1st Floor, Plot-65, Landmark House<br>
+                Sector-44, Gurugram – 122003
+            </p>
+
+            <p>🌐 www.crestinsure.com</p>
+            <p>📞 1800 205 430</p>
+            <p>✉️ pospsupport@crestinsure.com</p>
+
+            <h5>Follow Us</h5>
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+        </div>
+
+        <!-- INSURANCE POSP -->
+        <div class="footer-col">
+            <h4>Insurance POSP</h4>
+            <a href="#">Who Can Become a POSP Agent?</a>
+            <a href="#">Benefits of Becoming POSP Agent</a>
+            <a href="#">Step-by-Step Registration Process</a>
+
+            <h4 class="mt">Quick Links</h4>
+            <a href="#">Blog</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Use</a>
+        </div>
+
+        <!-- TRAINING -->
+        <div class="footer-col">
+            <h4>POSP Training & Certification</h4>
+            <a href="#">Training Modules</a>
+            <a href="#">Certification Process</a>
+            <a href="#">POSP Agent Exam</a>
+            <a href="#">Learning Resources</a>
+        </div>
+
+        <!-- HOW TO BECOME -->
+        <div class="footer-col">
+            <h4>How to Become an Agent</h4>
+            <a href="#">Become Motor Insurance Agent</a>
+            <a href="#">Become LIC Insurance Agent</a>
+            <a href="#">Become Health Insurance Agent</a>
+            <a href="#">Become Life Insurance Agent</a>
+            <a href="#">Become Travel Insurance Agent</a>
+            <a href="#">Become Bajaj Insurance Agent</a>
+        </div>
+
+    </div>
+
+    <!-- LEGAL BAR -->
+    <div class="footer-legal">
+        <p>
+            Crest Insurance Brokers Pvt. Ltd. | IRDAI Direct Insurance Broker (Life & General) |
+            License No: 841 | Valid Till: 02/08/2028 (Renewable) |
+            Reg. Office - 1st Floor, Plot-65, Landmark House, Sector-44, Gurugram – 122003 | CIN NO. - U66000HR2021PTC098960 | Reg. No. -IRDAI/BD/895/2025 | IBAI Membership No.-13841 Standard T&C Apply* For more details on risk factors, terms, and conditions, please read the sales brochure carefully before concluding a sale.Visitors are hereby informed that their information submitted on the website may be shared with insurers. Product information is authentic and solely based on the information received from the insurers.
+        </p>
+        <p>
+            © 2025–2028 Crest Insurance Brokers Pvt. Ltd. All Rights Reserved
+        </p>
+    </div>
+
+</footer>
+<style>.site-footer {
+    background: linear-gradient(135deg, #0b1020, #020617);
+    color: #cbd5f5;
+    padding: 60px 0 0;
+    font-size: 14px;
+}
+
+.footer-container {
+    max-width: 1300px;
+    margin: auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+}
+
+/* COLUMN */
+.footer-col h4 {
+    color: #ffffff;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.footer-col h5 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.footer-col p {
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+.footer-col a {
+    display: block;
+    color: #cbd5f5;
+    text-decoration: none;
+    margin-bottom: 8px;
+    transition: 0.3s;
+}
+
+.footer-col a:hover {
+    color: #60a5fa;
+    padding-left: 4px;
+}
+
+.mt {
+    margin-top: 25px;
+}
+
+/* SOCIAL */
+.social-icons {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.social-icons a {
+    width: 36px;
+    height: 36px;
+    background: #1e293b;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    transition: 0.3s;
+}
+
+.social-icons a:hover {
+    background: #2563eb;
+}
+
+/* LEGAL */
+.footer-legal {
+    margin-top: 50px;
+    border-top: 1px solid #1e293b;
+    padding: 15px 20px;
+    text-align: center;
+    font-size: 12px;
+    color: #94a3b8;
+}
+</style>
+</body>
+</html>

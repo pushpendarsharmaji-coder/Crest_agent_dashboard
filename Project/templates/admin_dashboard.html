@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard - Insurance Co.</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+body { margin:0; font-family:'Roboto',sans-serif; background:#f0f4f8; display:flex; min-height:100vh; }
+.sidebar { width:250px; background:linear-gradient(180deg,#007bff,#00bfff); color:white; display:flex; flex-direction:column; padding:2rem 1rem; position:fixed; top:0; bottom:0; }
+.sidebar h2 { text-align:center; margin-bottom:2rem; }
+.sidebar a { color:white; text-decoration:none; padding:0.7rem 1rem; margin-bottom:0.5rem; border-radius:8px; display:block; transition:0.3s; }
+.sidebar a:hover { background: rgba(255,255,255,0.2); }
+main { margin-left:250px; flex:1; padding:2rem; }
+header { margin-bottom:2rem; font-size:1.5rem; color:#007bff; font-weight:500; }
+.stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1rem; }
+.stat-card { background:white; padding:1.5rem; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.05); text-align:center; }
+.stat-card h3 { color:#007bff; margin:0; }
+.stat-card p { font-size:1.5rem; font-weight:700; margin-top:0.5rem; }
+@media(max-width:768px){ .sidebar{position:relative;width:100%;flex-direction:row;overflow-x:auto;padding:1rem 0.5rem;} main{margin-left:0;padding:1rem;} }
+</style>
+</head>
+<body>
+<div class="sidebar">
+    <h2>Admin Panel</h2>
+    <a href="/admin/dashboard">Dashboard</a>
+    <a href="/admin/users">Users</a>
+    <a href="/admin/reports">Reports</a>
+    <a href="/admin/logout">Logout</a>
+</div>
+<main>
+<header>Welcome, Admin!</header>
+<div class="stats">
+    <div class="stat-card">
+        <h3>Total Users</h3>
+        <p>{{ total_users }}</p>
+    </div>
+    <div class="stat-card">
+        <h3>Total Policies</h3>
+        <p>{{ total_policies }}</p>
+    </div>
+    <div class="stat-card">
+        <h3>Active Claims</h3>
+        <p>{{ active_claims }}</p>
+    </div>
+</div>
+</main>
+</body>
+</html>

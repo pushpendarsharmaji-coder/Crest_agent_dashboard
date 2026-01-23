@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard - Insurance Co.</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background: #f0f4f8;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background: linear-gradient(180deg, #007bff, #00bfff);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+}
+.sidebar h2 { margin: 0 0 2rem 0; font-size: 1.5rem; text-align: center; }
+.sidebar a { color: white; text-decoration: none; padding: 0.7rem 1rem; margin-bottom: 0.5rem; border-radius: 8px; transition: background 0.3s; display: block; }
+.sidebar a:hover { background: rgba(255,255,255,0.2); }
+
+/* Main content */
+main { margin-left: 250px; flex: 1; padding: 2rem; }
+header { display: flex; justify-content: space-between; align-items: center; background: white; padding: 1rem 2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-radius: 10px; margin-bottom: 2rem; }
+header h1 { margin: 0; font-size: 1.5rem; color: #007bff; }
+
+/* User table */
+table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+th, td { padding: 1rem; text-align: left; border-bottom: 1px solid #eee; }
+th { background: #007bff; color: white; }
+tr:hover { background: #f1f7ff; cursor: pointer; }
+
+/* User details modal */
+.modal { display: none; position: fixed; top: 0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; }
+.modal-content { background: white; padding: 2rem; border-radius: 12px; width: 90%; max-width: 800px; max-height: 90%; overflow-y: auto; }
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+.modal-header h2 { margin:0; color: #007bff; }
+.modal-close { background: #dc3545; color:white; border:none; padding:0.3rem 0.8rem; border-radius:6px; cursor:pointer; }
+.modal-close:hover { background:#c82333; }
+.card { background:white; padding:1rem; border-radius:10px; margin-bottom:1rem; box-shadow:0 4px 10px rgba(0,0,0,0.05); }
+.file-preview-container { display: flex; align-items: center; justify-content: space-between; background: #f8f9fa; border: 1px solid #ddd; padding: 0.5rem 1rem; border-radius: 8px; margin-top: 0.5rem; }
+.file-preview-container img { max-width: 80px; border-radius:6px; cursor:pointer; }
+.file-preview-container span { font-weight:500; flex:1; padding-left:10px; }
+.file-preview-container button { background:#ffc107; color:#212529; padding:0.3rem 0.8rem; font-size:0.85rem; }
+.file-preview-container button:hover { background:#e0a800; }
+input[type="text"], input[type="date"] { width: 100%; padding:0.6rem; border-radius:6px; border:1px solid #ccc; margin-bottom:0.5rem; }
+button.save-btn { background: #28a745; color:white; }
+button.save-btn:hover { background: #218838; }
+
+@media(max-width:768px){ .sidebar{position:relative;width:100%;flex-direction:row;overflow-x:auto;padding:1rem 0.5rem;} main{margin-left:0;padding:1rem;} header{flex-direction:column;text-align:center;} }
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>Admin Panel</h2>
+    <a href="/admin/dashboard">Dashboard</a>
+    <a href="/admin/users">Users</a>
+    <a href="/admin/reports">Reports</a>
+    <a href="/logout">Logout</a>
+</div>
+
+<main>
+<header>
+    <h1>Admin - User Management</h1>
+</header>
+
+<!-- Users Table -->
+<table id="usersTable">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>PAN</th>
+            <th>Account</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr data-user='{{ user | tojson | safe }}'>
+            <td>{{ user.id }}</td>
+            <td>{{ user.first_name }} {{ user.last_name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.pan or '-' }}</td>
+            <td>{{ user.account or '-' }}</td>
+            <td><button onclick="openModal(this)">View/Edit</button></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</main>
+
+<!-- User Modal -->
+<div class="modal" id="userModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>User Details</h2>
+            <button class="modal-close" onclick="closeModal()">Close</button>
+        </div>
+        <form id="adminUserForm">
+            <div class="card">
+                <h3>Personal Info</h3>
+                <label>First Name</label>
+                <input type="text" name="first_name">
+                <label>Middle Name</label>
+                <input type="text" name="middle_name">
+                <label>Last Name</label>
+                <input type="text" name="last_name">
+                <label>Email</label>
+                <input type="text" name="email" readonly>
+                <label>Date of Birth</label>
+                <input type="date" name="dob">
+            </div>
+            <div class="card">
+                <h3>Bank Info</h3>
+                <label>PAN</label>
+                <input type="text" name="pan">
+                <label>Account Number</label>
+                <input type="text" name="account">
+                <label>IFSC</label>
+                <input type="text" name="ifsc">
+                <label>Bank Name</label>
+                <input type="text" name="bank">
+                <label>Branch</label>
+                <input type="text" name="branch">
+            </div>
+            <div class="card">
+                <h3>Documents</h3>
+                {% for field,label,file in [('doc1','Profile Photo', user.profile_photo),('doc2','PAN Document', user.pan_doc),('doc3','Address Proof', user.address_proof),('doc4','Bank Proof', user.bank_proof),('doc5','Education Certificate', user.education_cert)] %}
+                    {% if file %}
+                    <div class="file-preview-container">
+                        <img src="{{ url_for('static', filename=file.split('static/')[1]) }}">
+                        <span>{{ label }}</span>
+                        <button type="button" onclick="editFile(this,'{{ field }}')">Edit</button>
+                    </div>
+                    <input type="file" name="{{ field }}" style="display:none;">
+                    {% else %}
+                    <label>{{ label }}</label>
+                    <input type="file" name="{{ field }}">
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <button type="submit" class="save-btn">Save Changes</button>
+        </form>
+    </div>
+</div>
+
+<script>
+// Open user modal
+function openModal(btn) {
+    const row = btn.closest('tr');
+    const userData = JSON.parse(row.dataset.user);
+    const form = document.getElementById('adminUserForm');
+    form.first_name.value = userData.first_name || '';
+    form.middle_name.value = userData.middle_name || '';
+    form.last_name.value = userData.last_name || '';
+    form.email.value = userData.email || '';
+    form.dob.value = userData.dob || '';
+    form.pan.value = userData.pan || '';
+    form.account.value = userData.account || '';
+    form.ifsc.value = userData.ifsc || '';
+    form.bank.value = userData.bank || '';
+    form.branch.value = userData.branch || '';
+    document.getElementById('userModal').style.display = 'flex';
+}
+
+// Close modal
+function closeModal() { document.getElementById('userModal').style.display='none'; }
+
+// Show hidden file input on Edit click
+function editFile(btn, fieldName) {
+    const container = btn.parentElement;
+    container.style.display = 'none';
+    const fileInput = container.nextElementSibling;
+    fileInput.style.display = 'block';
+}
+
+// AJAX form submit for admin
+document.getElementById('adminUserForm').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const formData = new FormData(this);
+    try {
+        const response = await fetch("/admin/update_user", {
+            method: "POST",
+            body: formData
+        });
+        const data = await response.json();
+        if(data.success){ alert('User updated successfully'); closeModal(); location.reload(); }
+        else{ alert('Error: '+data.error); }
+    } catch(err){ alert('Error: '+err.message); }
+});
+</script>
+</body>
+</html>

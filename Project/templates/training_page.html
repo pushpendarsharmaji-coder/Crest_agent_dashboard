@@ -1,0 +1,2045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>POSP Training – 15 Hours</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f6fa;
+    margin: 0;
+}
+
+header {
+    background: #004aad;
+    color: #fff;
+    padding: 15px 30px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.container {
+    width: 90%;
+    margin: 20px auto;
+}
+
+/* Tabs */
+.tab-btn {
+    padding: 10px 16px;
+    margin: 5px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    background: #ddd;
+}
+
+.tab-btn.active {
+    background: #004aad;
+    color: #fff;
+}
+
+.tab-btn.locked {
+    background: #bbb;
+    color: #666;
+    cursor: not-allowed;
+}
+
+.tab-btn.completed {
+    background: #28a745;
+    color: #fff;
+}
+
+/* Content */
+.module-content {
+    display: none;
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.module-content.active {
+    display: block;
+}
+
+/* Buttons */
+.next-btn {
+    margin-top: 20px;
+    background: #28a745;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.exam-btn {
+    background: #ff9800;
+    color: #fff;
+    padding: 14px 26px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    display: none;
+    margin-top: 30px;
+}
+
+/* Timer */
+.timer-box {
+    background: #fff;
+    padding: 12px 18px;
+    border-radius: 6px;
+    border: 2px solid #004aad;
+    display: inline-block;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.lock-msg {
+    color: red;
+    margin-top: 10px;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.button-container a {
+    background-color: #004080;
+    color: #fff;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.button-container a:hover {
+    background-color: #0066cc;
+}
+</style>
+</head>
+
+<body>
+
+<header>POSP Training – Complete 15 Hours to Unlock Exam</header>
+
+<div class="container">
+
+    <div class="timer-box">
+        Training Time Spent:
+        <span id="timeSpent">0h 00m 00s</span> / 15h
+    </div>
+
+    <br><br>
+
+    <!-- MODULE TABS -->
+    <div id="tabs"></div>
+
+    <p id="moduleLockMsg" class="lock-msg"></p>
+
+    <!-- MODULE CONTENT -->
+    <div id="modules"></div>
+
+    <!-- EXAM BUTTON -->
+    <button id="examBtn" class="exam-btn" onclick="goToExam()">🎓 Go To Exam</button>
+    
+</div>
+
+<div class="button-container">
+    <a href="dashboard">Back to Dashboard</a>
+</div>
+
+<script>
+/* ================== CONFIG ================== */
+const TOTAL_MODULES = 16;
+const REQUIRED_SECONDS = 15 * 60 * 60; // 15 hours
+
+/* ================== TIMER ================== */
+let totalSeconds = localStorage.getItem("trainingSeconds")
+    ? parseInt(localStorage.getItem("trainingSeconds"))
+    : 0;
+
+setInterval(() => {
+    totalSeconds++;
+    localStorage.setItem("trainingSeconds", totalSeconds);
+    updateTimer();
+    checkExamUnlock();
+}, 1000);
+
+function updateTimer() {
+    let h = Math.floor(totalSeconds / 3600);
+    let m = Math.floor((totalSeconds % 3600) / 60);
+    let s = totalSeconds % 60;
+    document.getElementById("timeSpent").textContent =
+        `${h}h ${String(m).padStart(2,'0')}m ${String(s).padStart(2,'0')}s`;
+}
+
+/* ================== MODULE CONTENT ================== */
+const moduleContents = [
+    [
+        "Introduction to Insurance",
+`<h2>Introduction to Insurance</h2>
+
+<!-- Moduel-1 -->
+<div class="sub-tabs">
+    <button class="sub-tab-btn active" onclick="showSubTab('Concept of insurance')">
+        Concept of insurance
+    </button>
+    <button class="sub-tab-btn" onclick="showSubTab('Purpose and need of insurance')">
+        Purpose and need of insurance 
+    </button>
+    <button class="sub-tab-btn" onclick="showSubTab('Concepts of Risk, Peril and Hazard')">
+        Concepts of Risk, Peril and Hazard 
+    </button>
+</div>
+
+<!-- Sub Tab Content -->
+<div class="sub-tab-content active" id="Concept of insurance">
+    <h3>Concept of insurance</h3>
+    <p>
+        Each asset has a financial value and is procured to provide certain
+        benefits. The benefit can be in the form of direct income or
+        comfort and convenience. Assets may be ‘tangible’ or ‘intangible’.
+        Human beings, house, furniture, vehicle, property etc. are tangible
+        assets. Liability, goodwill, fair deal, voice of a singer, employee’s
+        honesty etc. are examples of intangible assets. Insurance covers
+        both tangible and intangible assets. 
+    </p>
+    <p>
+        Insurance is a system by which risk is transferred by a
+        person, business or an organization to an insurance
+        company, which reimburses the insured for the covered
+        losses. 
+    </p>
+    <p>
+        A few insured who suffer losses are paid out of the premiums paid
+        by the many. Thus spreading of risks or pooling of risks is the basis
+        of insurance operations.
+        <h3>How insurance works?</h3>
+        Persons exposed to the same risk come together and agree that if
+        anyone of them suffers a loss the others will share the same.
+        <h5>Example: if one farmer’s cow dies due to accident or sickness, all
+        the farmers in the village contribute to share the loss and help the
+        farmer financially to purchase another cow.</h5>
+        Different type of risks can be identified and a sufficiently large
+        group of similar risks can be formed. A fund can be created out of
+        contributions by the members of this group.
+        In practice this fund is managed by an Insurance Company
+        (Insurer). The amount an insurance company collects as expected
+        contribution from the group members (Insured) in advance to
+        create the fund is called Premium. From this fund, they pay to the
+        person who suffers a loss. 
+    </p>
+
+</div>
+
+<div class="sub-tab-content" id="Purpose and need of insurance">
+    <h3>Purpose and need of insurance </h3>
+    <p>
+        The purpose of Insurance is to create a system through which a
+        fund is created. This fund is based on the pooling principle. The
+        fund is utilized for providing compensation to the few who suffer
+        losses.
+        <ul class="bullet-list">
+        <li> An office manager may suffer loss due to fire in his house. He
+        needs insurance for his house and household goods.</li>
+        <li> A shopkeeper may need insurance for his shop</li>
+        <li> A family needs insurance on the life of its breadwinner.</li>
+        <li> A teacher may need insurance for medical expenses.</li>
+        <li> A farmer needs insurance for his crop.</li>
+        </ul>
+        
+    </p>
+</div>
+
+<div class="sub-tab-content" id="Concepts of Risk, Peril and Hazard">
+    <h3>Concepts of Risk, Peril and Hazard</h3>
+    <p>
+        <ul class="bullet-list">
+        <li><strong>Risk:</strong></li>
+        </ul>
+        The term ‘risk’ refers to a situation of uncertain possibility of loss or
+        damage. Only uncertain risks are covered by insurance.
+
+        <ul class="bullet-list">
+        <li><strong>Peril:</strong></li>
+        </ul>
+        Causes of loss is called "Peril". An asset is likely to be lost,
+        destroyed or damaged due to certain accidental occurrences such
+        as fire, floods, theft, earthquake and so many other mishappenings like these. These likely mis-happenings are called
+        ‘perils’.
+
+        <ul class="bullet-list">
+        <li><strong>Hazard:</strong></li>
+        </ul>
+        Mere exposure to a peril need not cause a loss. Again, a loss need
+        not be severe. The condition or conditions which increase the
+        probability of a loss or its severity, and thus impact(s) the risk is
+        known as hazard. When insurers make an assessment of the risk, it
+        is generally with reference to the hazards to which the asset is
+        subject.
+        <h3>Risk, Peril, and Hazard – An Explanation</h3>
+
+<table class="risk-table">
+    <thead>
+        <tr>
+            <th>RISK</th>
+            <th>PERIL</th>
+            <th>HAZARD</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Loss due to death</td>
+            <td>Cancer</td>
+            <td>Excessive smoking</td>
+        </tr>
+        <tr>
+            <td>Loss or damage to factory</td>
+            <td>Fire</td>
+            <td>Explosive material</td>
+        </tr>
+        <tr>
+            <td>Damage to car</td>
+            <td>Car accident</td>
+            <td>Careless driving</td>
+        </tr>
+        <tr>
+            <td>Loss of cargo at sea</td>
+            <td>Storm</td>
+            <td>Non-waterproof containers</td>
+        </tr>
+    </tbody>
+</table>
+ 
+   </p>
+</div>
+
+
+`],
+
+[
+        "Introduction to Insurance",
+`<h2>Indian Insurance Market</h2>
+
+<!-- Moduel-1 -->
+<div class="sub-tabs">
+    <button class="sub-tab-btn active" onclick="showSubTab('Insurance Regulatory and Development Authority of India (IRDAI) ')">
+        Insurance Regulatory and Development Authority of India (IRDAI) 
+    </button>
+    <button class="sub-tab-btn" onclick="showSubTab('Insurers')">
+        Insurers 
+    </button>
+    <button class="sub-tab-btn" onclick="showSubTab('Insurance Intermediaries')">
+        Insurance Intermediaries
+    </button>
+
+    <button class="sub-tab-btn" onclick="showSubTab('Point of Sales Person (POSP)')">
+        Point of Sales Person (POSP)
+    </button>
+</div>
+
+<!-- Sub Tab Content -->
+<div class="sub-tab-content active" id="Insurance Regulatory and Development Authority of India (IRDAI) ">
+    <h3>1. Insurance Regulatory and Development Authority of India (IRDAI) </h3>
+    <p>In India, the insurance industry is regulated by the Insurance
+    Regulatory & Development Authority of India (IRDAI). It was set up
+    as an autonomous body under the IRDA Act, 1999 to protect the
+    interests of the policyholders and work for the orderly growth of
+    the industry. Insurance sector was opened to private players in the
+    Year 2000.<br><br>
+
+    <strong>IRDAI Functions:</strong><br><br>
+    👉 Frames regulations for insurance industry under Insurance
+    Act, 1938.<br>
+    👉 From the year 2000 has registered new insurance
+    companies in accordance with regulations.<br>
+    👉 Monitors insurance sector activities for healthy
+    development of the industry and protection of
+    policyholders’ interests.<br><br>
+    <strong>2. Insurance Councils</strong><br><br>
+    The Insurance Act, 1938 has a provision for setting up a Life
+    Insurance Council and a General Insurance Council. These are
+    advisory bodies to advice and provide inputs to IRDAI and the
+    Government on different issues. They work through various
+    committees on the issues facing the insurance industry.<br><br>
+    <strong>3. Insurance Ombudsman</strong><br><br>
+    Insurance Ombudsman is a non-judicial authority created by
+    Central Government under "Redressal of Public Grievances
+    Rules 1998".<br><br>
+
+    <strong>Third Party Administrators – Health Services:</strong><br><br>
+    Third Party Administrators (TPAs) are service providers to
+    insurance companies for processing health insurance claims and
+    offering cashless settlement.<br><br>
+    <strong>Referral Providers:</strong><br><br>
+    A referral entity provides data of its clients to an insurer who
+    wishes to sell policies to them. It does not actually sell the policies.<br><br>
+    <strong>Web Aggregators:</strong><br><br>
+    Web Aggregators compile and provide information about insurance
+    policies of various companies on a website.<br><br>
+    <strong>Insurance Marketing Firm (IMF):</strong><br><br>
+    Insurance Marketing Firm is a new distribution channel to solicit or
+    procure insurance products, to distribute other financial products
+    by employing individuals licensed to market, distribute and service
+    such other financial products.<br><br>
+    <strong>Insurance Repositories:</strong><br><br>
+    Insurance Repositories maintain data of insurance policies in
+    electronic form on behalf of Insurance Companies. 
+    </p>
+</div>
+
+<div class="sub-tab-content" id="Insurers">
+    <h3>Insurers</h3>
+           <p>
+        <strong>Insurers:</strong>
+        </p>
+        <p>The insurance industry of India consists of 54 insurance companies
+        of which 24 are in life insurance business, 30 are non-life insurers.
+        Among the life insurers, Life Insurance Corporation (LIC) is the sole
+        public sector company.<br><br>Out of 30 non-life insurance companies, there are six public sector
+        insurers, which include two specialised insurers namely Agriculture
+        Insurance Company Ltd for all kind of agriculture insurance like
+        crop Insurance, plant and yield insurance and Export Credit
+        Guarantee Corporation of India for Credit Insurance.<br><br>There are six (6) private sector insurers registered to underwrite
+        policies exclusively in Health, Personal Accident and Travel
+        insurance segments. These are:–<br><br>
+        1. Star Health and Allied Insurance Company Ltd.<br>
+        2. Apollo Munich Health Insurance Company Ltd.<br>
+        3. Max Bupa Health Insurance Company Ltd.<br>
+        4. Religare Health Insurance Company Ltd.<br>
+        5. Cigna TTK Health Insurance Company Ltd.<br>
+        6. Aditya Birla Health Insurance Company Ltd.<br><br>
+        In addition to 54 insurance companies, there are two re-insurer,
+        namely, General Insurance Corporation of India and ITI Reinsurance
+        Limited.<br><br>
+        Insurance Laws (Amendment) Act, 2015 provides for enhancement
+        of the Foreign Investment Cap in an Indian Insurance Company
+        from 26% to an Explicitly Composite Limit of 49% with the
+        safeguard of Indian Ownership and Control.<br><br>
+        State Insurance Funds not controlled by IRDAI:<br><br>
+        1. Maharashtra State Insurance Fund<br>
+        2. Gujarat State Insurance Fund<br>
+        3. Kerala State Insurance Fund<br>
+        4. Rajasthan State Insurance Fund<br><br>
+        <strong>Postal Department also operates two Life Insurance Schemes
+        which are not under IRDAI:</strong><br><br>
+        1. Postal Life Insurance (PLI) which is available to employees
+        of Government, Semi Government and Public Sector
+        Undertakings<br>
+        2. Rural Postal Life Insurance (RPLI) to provide insurance cover
+        to the Rural Public<br> 
+        </p>
+</div>
+
+<div class="sub-tab-content" id="Insurance Intermediaries">
+    <h3>Insurance Intermediaries:</h3>
+    <p>
+        An intermediary is a person or an agency who acts as a link
+        between the insurance company and the policyholder. In Indian
+        insurance market, the following intermediaries are operating in
+        insurance sector:<br><br>
+        <strong>1. Individual Agents<br>
+        2. Corporate Agents<br>
+        3. Bancassurance<br>
+        4. Insurance Brokers</strong><br><br>
+        <strong>Micro Insurance Agents:</strong> Micro Insurance Agents are allowed to do
+        only micro insurance business both in life and non-life insurance.<br><br>
+        <strong>Village Level Entrepreneur (VLE):</strong> VLE is an individual registered
+        and authorized to operate the Common Service Centre (CSC), and
+        is in-charge of running the daily operations of the Centre under the
+        Act started by the Department of Electronics & Information
+        Technology (DeitY), Government of India.<br><br>
+        <strong>Appointment of Point of Sales Person</strong><br><br>
+        1. An insurance company or an insurance intermediary can
+        engage a Point of Sales Person to represent him.<br>
+        2. A Point of Sales Person can represent an insurance
+        company or an insurance intermediary
+ 
+   </p>
+</div>
+<div class="sub-tab-content" id="Point of Sales Person (POSP)">
+    <h3>Role of Point of Sales Person (POSP)</h3>
+    <p>
+        POSP is an individual who possesses the minimum qualifications,
+        has undergone training and passed the examination as specified in
+        IRDAI guidelines and solicits and markets only certain preunderwritten products approved
+        by the IRDAI.<br><br>
+        As per the regulator, products such as motor insurance, travel
+        insurance and personal accident insurance require very little
+        underwriting as they are based on information provided by the
+        prospect. Also, such insurance policies are automatically generated
+        by the system.<br><br>
+        Therefore, the intervention required for such products is minimal
+        and the training and exams for such persons could be of a lesser
+        degree than those for a full-fledged distributor.<br><br>
+        To start with, POSP Guidelines were issued by the IRDAI on
+        26th October 2015 to cover Point of Sales Persons - Non-Life and
+        Health Insurance.<br><br>
+        In November, 2016 IRDAI allowed the life insurance industry to use
+        point of sales person to sell life insurance products also. It
+        identified products that are simple to understand, and in which the
+        benefits are stated upfront and they are fixed and predefined.<br><br>
+        
+        Accordingly, IRDAI identified pure-term insurance plans with and
+        without return of premium, non-linked (non-participating)
+        endowment plans that state the investment benefits upfront and
+        immediate annuity as products that can be sold by the point of
+        sales person.<br><br>
+        In February, 2017 in order to ensure faster certification of point of
+        sales person in the life insurance space, the regulator has relaxed
+        the certification programme by allowing the insurers or
+        intermediaries hiring them to train and examine these individuals
+        in-house.<br><br>
+        <strong>There are two types of persons who can solicit and market insurance policies namely:</strong><br><br> 
+        1. Insurance agent or specified persons of corporate agent or
+        broker trained persons for soliciting and marketing
+        insurance policies or insurance sales persons of Insurance
+        Marketing Firm or rural authorised persons of Common
+        Service Centre (CSC) or authorised person of web
+        aggregators who can solicit and market all types of
+        insurance policies. <br>
+        2. “Point of Sales Person” who can solicit and market only
+            certain pre-underwritten products approved by the
+            Authority. <br><br>
+        <strong>Specialist Intermediaries:</strong><br><br>
+        1. Insurance Surveyors and Loss Assessors<br>
+        2. Claim Investigators<br>
+        3. Medical Examiners<br>
+        4. Third Party Administrators (TPA) <br>
+   </p>
+</div>
+
+<style>.sub-tabs {
+    margin: 20px 0;
+}
+
+.sub-tab-btn {
+    padding: 10px 14px;
+    margin-right: 6px;
+    border: none;
+    border-radius: 6px;
+    background: #ddd;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.sub-tab-btn.active {
+    background: #004aad;
+    color: #fff;
+}
+
+.sub-tab-content {
+    display: none;
+    background: #f9f9f9;
+    padding: 18px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.sub-tab-content.active {
+    display: block;
+}
+.bullet-list {
+    padding-left: 20px;
+}
+.bullet-list li {
+    margin-bottom: 8px;
+}
+.risk-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 15px;
+}
+
+.risk-table th,
+.risk-table td {
+    border: 1px solid #000;
+    padding: 10px;
+    text-align: left;
+}
+
+.risk-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+</style>
+`],
+[
+        "Introduction to Insurance",
+`<h2> Principles and Practice of Insurance</h2>
+
+<!-- Moduel-3 -->
+<div class="sub-tabs">
+    <button class="sub-tab-btn active" onclick="showSubTab('Offer (Proposal) and Acceptance')">
+        Offer (Proposal) and Acceptance 
+    </button>
+    <button class="sub-tab-btn" onclick="showSubTab('Insurable Interest')">
+        Insurable Interest
+    </button>
+    <button class="sub-tab-btn" onclick="showSubTab('Proposal Form')">
+        Proposal Form
+    </button>
+
+    <button class="sub-tab-btn" onclick="showSubTab('Policy Terms and Conditions')">
+        Policy Terms and Conditions
+    </button>
+    <button class="sub-tab-btn" onclick="showSubTab('Insurance claim')">
+        Insurance claim
+    </button>
+    
+</div>
+
+<!-- Sub Tab Content -->
+
+
+
+
+<div class="sub-tab-content active" id="Offer (Proposal) and Acceptance">
+    <h3>What is Insurance Policy?</h3>
+    <p>An Insurance Policy is a contract between the insurer and the
+    insured and fulfils the requirements enshrined in the Indian
+    Contract Act, 1872.<br><br>
+    <img src="{{ url_for('static', filename='images/partners/Offer and Acceptance.png') }}"
+     alt="Offer and Acceptance"
+     style="width:300px; display:block; margin:10px auto; border-radius:6px;"><br><br>
+     
+
+    <strong>Offer and Acceptance:</strong><br><br>
+    Offer is made by the prosper and acceptance is made by the insurer. If any condition is put it becomes a counter offer. The
+    policy bond becomes the evidence of the contract.
+    <br><br>
+    <strong>Consideration (Premium)</strong><br><br>
+    <strong>Premium</strong> is the consideration from the insured, and the promise to indemnify, is the consideration from the insurer.
+    <br><strong>Same mind (Consensus ad-idem)</strong>—Both insurer and insured must
+    agree on the same thing in the same manner.<br>
+    <strong>Free Consent</strong>— There should be free consent while entering into a
+    contract. Consent is said to be free if it is not caused by coercion,
+    undue influence, fraud, misrepresentation or mistake. When
+    consent to an agreement is caused by coercion, fraud or
+    misrepresentation, the agreement is voidable.<br><br>Consent is said to be free if it is not caused by:<br><br>
+    (a) Coercion — It applies pressure applied through criminal means.<br>
+    (b) Undue influence—when a person who is able to dominate the
+    will of another uses his position to obtain an undue advantage over
+    the other.<br>
+    (c) Fraud—when a person induces another to act on a false belief
+    that is caused by a representation he does not believe to be true. It
+    can arise either from deliberate &nbsp;&nbsp;&nbsp;&nbsp;concealment of facts or through
+    misrepresenting them.<br>
+    (d) Mistake—Error in one’s knowledge or belief or interpretation
+    of a thing or event. This can be lead to an error in understanding
+    and agreement about the subject matter of &nbsp;&nbsp;&nbsp;&nbsp;contract.<br>
+    Capacity of the parties — The policyholder should be major and of
+    sound mind and not disqualified under law. Both the parties should
+    be legally competent.<br>
+    Legality— The object of the contract must be legal.
+</div>
+
+<div class="sub-tab-content" id="Insurable Interest">
+    <h3>Special features of Insurance Contracts:</h3>
+    <p><strong>Insurable interest</strong> — is an essential ingredient of every insurance
+    contract and is considered as legal pre-requisite for insurance. It
+    relates to the financial interest in the property to be insured. One’s
+    insurable interest can be in self (one life), Spouse’s life, Children life
+    and Assets owned. <br><br>
+    <img src="{{ url_for('static', filename='images/partners/insurable_interest.png') }}"
+     alt="Offer and Acceptance"
+     style="width:300px; display:block; margin:10px auto; border-radius:6px;"><br><br>
+     In life insurance insurable interest must be present at the time of
+    taking the policy. In general insurance insurable interests should be
+    present at the time of taking the policy as well as at the time of
+    claim except for marine cargo policies, where it must be present at
+    the time of loss<br><br>
+    <strong>Uberrima Fides or Utmost Good Faith :</strong><br><br>
+    It means every party to the contract must disclose all material facts relating to the subject matter of insurance.It is defined as involving “a  positive duty to voluntarily 
+    disclose, accurately and fully, all facts material to the risk being proposed, whether requested or not.” If utmost good faith is not observed by
+    either party, the contract may be avoided by the other.<br><br>
+
+    <img src="{{ url_for('static', filename='images/partners/insurable_interest2.png') }}"
+     alt="Offer and Acceptance"
+     style="width:300px; display:block; margin:10px auto; border-radius:6px;"><br><br>
+    <strong>Material Facts</strong> — It has been defined as a fact that would affect the
+    judgment of an insurance underwriter in deciding whether to
+    accept the risk and if so, the rate of premium and the terms and
+    conditions.<br>
+    <strong>Facts that need not be disclosed</strong> - It is also held that unless there is
+    a specific enquiry by underwriters, the proposer has no obligation
+    to disclose the following facts:<br><br>
+    1. Measures implemented to reduce the risk. Example: The
+    presence of a fire extinguisher.<br>
+    2. Facts which the insured does not know or is unaware of
+    Example: An individual, who suffers from high blood
+    pressure but was unaware about the same at the time of
+    taking the &nbsp;&nbsp;&nbsp;&nbsp;policy, cannot be charged with nondisclosure of
+    this fact.<br>
+    3. Which could be discovered, by reasonable diligence
+    (Common Knowledge) Example: It is not necessary to
+    disclose every minute material fact. The underwriters must
+    be &nbsp;&nbsp;&nbsp;&nbsp;conscious enough to ask for the same if they require
+    further information.It is also held that unless there is a specific enquiry by
+    underwriters, the proposer has no obligation to &nbsp;&nbsp;&nbsp;&nbsp;disclose.<br>
+    4. Matters of law: Everybody is supposed to know the law of
+    the land. Example: Municipal laws about storing of
+    explosives.<br>
+    5. About which insurer appears to be indifferent (or has
+    waived the need for further information). The insurer
+    cannot later disclaim responsibility on grounds that the
+    answers were &nbsp;&nbsp;&nbsp;&nbsp;incomplete<br><br>
+    <strong>Indemnity:</strong> The object of the principle of indemnity is to place the
+    insured after a loss in the same financial position, as far as possible,
+    as he occupied immediately before the loss. The effect of the
+    principle is to prevent the insured from making a profit out of his
+    loss.<br><br>
+    <strong>Subrogation:</strong> The principle of subrogation may be defined as the
+    transfer of rights and remedies of the insured to the insurer who
+    has indemnified the insured in respect of the loss.<br><br>
+    <strong>Contribution:</strong> The principle of contribution is defined as the right of
+    insurers who have paid a loss under a policy to recover a
+    proportionate amount from other insurers who are liable for the
+    same loss.<br><br>
+    It is important to note that the principles of ‘subrogation‘ and
+    ‘contribution‘ do not apply in personal accident policies as these
+    are not contracts of indemnity<br>
+    According to IRDAI Health Insurance Regulations 2013, insurers can
+    not insist on contribution clause before settling a claim.<br><br>
+    <strong>Proximate Cause:</strong> ‘Proximate Cause‘refers to the event that proves
+    to be the dominant cause and there is a direct link between it and
+    the resultant loss. Proximate Cause is important because when it
+    comes to establishing the cause of a loss, and whether it is covered
+    under the insurance contract, we need to look at the dominant
+    cause of the loss. 
+    </p>
+
+</div>
+<div class="sub-tab-content" id="Proposal Form">
+    <h3>Proposal Form:</h3>
+    <p>The proposal form contains questions designed to elicit all material
+    information about the particular risk proposed for insurance.<br><br>
+    ✔ who he/she is<br>
+    ✔ what kind of insurance he/she needs<br>
+    ✔ details of what he/she wants to insure and<br>
+    ✔ for what period of time<br>
+    ✔details of previous insurance and claims<br><br>
+    Details would mean the monetary value of the subject matter of
+    insurance and all material facts connected with the proposed
+    insurance.<br><br>
+    The proposal form includes a Declaration where the insured
+    declares that the answers are true and accurate and that he agrees
+    that the proposal form shall be the basis of the insurance contract.
+    Any wrong answer will give the right to the insurer to avoid the
+    contract.<br>
+    <h3>Sales Literature:</h3>
+    As per IRDAI, specific disclosures have to be made in sales
+    literature, especially features like there are two insurers involved,
+    that each risk is distinct from the other, who will settle claims,
+    matters relating to renewability of both or only one of the covers
+    at the option of the insured, servicing facilities etc.
+    Insurers have also to clearly draw the attention of the policyholder
+    in the policy contract and sales literature that:<br>
+    (a) All health insurance policies are portable;<br>
+    (b) Policyholder should initiate action to approach another insurer,
+    to take advantage of portability, well before the renewal date to avoid any break in the policy coverage due to delays in
+    acceptance of the proposal by the other insurer.<br><br>
+    IRDAI has cautioned members of the public not to get carried away
+    by unapproved sales presentations being circulated in the market.
+    They may take an informed decision while purchasing a policy, on
+    the basis of proper disclosures by the licensed representatives of
+    the insurer. 
+    <h4>Renewal Notice: </h4>
+    Most of the non-life insurance policies are issued on annual basis.
+    There is no legal obligation on the part of insurers to advise the
+    insured that his policy is due to expire on a particular date.
+    However, as a matter of courtesy and healthy business practice,
+    insurers issue a renewal notice in advance of the date of expiry,
+    inviting renewal of the policy. It is also the practice to include a
+    note advising the insured that he should intimate any material
+    alterations in the risk. 
+    <h4>Premium Payment Options: </h4>
+    Non-life policies are generally issued for one year and full premium
+    is to be paid in advance before commencement of risk.
+    Premium payment to an insurer by a person seeking insurance or
+    by the policyholder may be made in any one or more of the
+    following methods –<br><br>
+    1. Cash<br>
+    2. Any recognised banking negotiable instrument such as
+    cheques, demand drafts, pay order, banker’s cheques drawn on
+    any schedule bank in India;<br>
+    3. Postal money order;<br>
+    4. Credit or debit cards;<br>
+    5. Net Banking / E-transfer<br>
+    6. Direct credits via standing instruction of proposer or the
+    policyholder or the insured through bank transfers; <br><br>
+    As per IRDAI Regulations, in case the proposer / policyholder opts
+    for premium payment through net banking or credit / debit card,
+    the payment must be made only through net banking account or
+    credit / debit card issued in the name of such proposer /
+    policyholder.
+    <h4>Section 64VB the Insurance Act, 1938: </h4>
+    No risk to be assumed unless premium is received in advance:—<br><br>
+    1. No insurer shall assume any risk in India in respect of any
+    insurance business on which premium is not ordinarily
+    payable outside India unless and until the premium payable
+    is &nbsp;&nbsp;&nbsp;&nbsp;received by him or is guaranteed to be paid by such
+    person in such manner and within such time as may be
+    prescribed or unless and until deposit of such amount as
+    may be &nbsp;&nbsp;&nbsp;&nbsp;prescribed, is made in advance in the prescribed
+    manner.<br><br>
+    2. Where the premium is tendered by postal money order or
+    cheque sent by post, the risk may be assumed on the date
+    on which the money order is booked or the cheque is
+    &nbsp;&nbsp;&nbsp;&nbsp;posted, as the case may be.<br><br>
+    3. Any refund of premium which may become due to an
+    insured on account of the cancellation of a policy or
+    alteration in its terms and conditions or otherwise shall be
+    paid by the &nbsp;&nbsp;&nbsp;&nbsp;insurer directly to the insured by a crossed or
+    order cheque or by postal money order and a proper
+    receipt shall be obtained by the insurer from the insured,
+    and such refund shall &nbsp;&nbsp;&nbsp;&nbsp;in no case be credited to the account
+    of the agent.<br><br>
+    4. Where an insurance agent collects a premium on a policy of
+    insurance on behalf of an insurer, he shall deposit with, or
+    despatch by post to, the insurer, the premium so collected
+    &nbsp;&nbsp;&nbsp;&nbsp;in full without deduction of his commission within twentyfour hours of the collection excluding bank and postal
+    holidays.
+    </p>
+</div>
+<div class="sub-tab-content active" id="Policy Terms and Conditions">
+    <h4>Conditions:</h4>
+    <p>
+        A condition is a provision in an insurance contract which forms the
+        basis of the agreement. Breach of a condition makes the policy
+        voidable at the option of the insurer.<br><br>
+        For example –<br><br>
+        One of the standard conditions in most insurance policies states –
+        If the claim be in any respect fraudulent, or if any false declaration
+        be made or used in support thereof or if any fraudulent means or
+        devices are used by the Insured or any one acting on his behalf to
+        obtain any benefit under the policy or if the loss or damage be
+        occasioned by the Wilful Act, or with the connivance of the
+        Insured, all benefits under this policy shall be forfeited.<br><br>
+        The Claim Intimation condition in a Health policy may state –
+        Claim must be filed within certain days from date of discharge from
+        the Hospital. However, waiver of this Condition may be considered
+        in extreme cases of hardship where it is proved to the satisfaction
+        of the Company that under the circumstances in which the insured
+        was placed it was not possible for him or any other person to give
+        such notice or file claim within the prescribed time-limit.
+        <h4>Warranties:</h4>
+        ‘Warranty’ is a condition expressly stated in the policy which has to
+        be literally complied with for validity of the contract.
+        Warranty is not a separate document. It is part of the policy
+        document. It is a condition precedent to (which operates prior to
+        other terms of) the contract. It must be observed and complied
+        with strictly and literally, whether or not it is material to the risk.<br><br>
+        With a warranty, the insured undertakes certain obligations that
+        need to be complied within a certain period of time and also during
+        the policy period. Liability of the insurer depends on the insured’s
+        compliance with these obligations. Warranties play an essential
+        role in managing and improving the risk.<br><br>
+        Warranties are meant to limit the liability of the insurer under
+        certain circumstances. Insurers also include warranties in a policy
+        to reduce the hazard.
+        <h4>Endorsement:</h4>
+        Endorsements are meant to effect amendments / changes in policy
+        document. If certain terms and conditions of the policy need to be
+        changed at the time of issuance, it is done by way of endorsement.
+        It is attached to the policy and forms a part of it. The policy and the
+        endorsement together make up the contract.
+        Endorsements may also be issued during the currency of the policy
+        to record changes / amendments.
+        <h4>Section 41 of Insurance Act, 1938:</h4>
+        <h4>Prohibition of Rebates:</h4>
+        (1) No person shall allow or offer to allow, either directly or
+        indirectly, as an inducement to any person to take out or renew or
+        continue an insurance in respect of any kind of risk relating to lives
+        or property in India, any rebate of the whole or part of the
+        commission payable or any rebate of the premium shown on the
+        policy, nor shall any person taking out or renewing or continuing a
+        policy accept any rebate, except such rebate as may be allowed in
+        accordance with the published prospectuses or tables of the
+        insurer;<br><br>
+        (2) Any person making default in complying with the provisions of
+        this section shall be punishable with fine which may extend to five
+        hundred rupees.
+
+    </p>
+</div>
+<div class="sub-tab-content active" id="Insurance claim">
+    <h4>Intimation of claim - appointment of surveyor - survey
+        report - assessment of loss - settlement of loss -
+        discharge voucher - payment of claim</h4>
+    <p><img src="{{ url_for('static', filename='images/partners/claim.png') }}"
+        alt="Offer and Acceptance"
+        style="width:300px; display:block; margin:10px auto; border-radius:6px;"><br><br>
+    <strong>Claim Intimation:</strong><br><br>
+    When the insured event occurs, a claim for payment of loss arises.
+    While in few policies, there is a specific time limit for intimating the
+    claim, all policies state that intimation be sent to the insurer
+    immediately.<br><br>
+    There are two stages of claim settlements:<br><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;a)&nbsp;&nbsp;&nbsp;&nbsp; Claims Investigation and<br><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;b)&nbsp;&nbsp;&nbsp;&nbsp; Claim Assessment<br><br>
+    Investigation tries to determine the validity of the claim whereas
+    assessment is more concerned with the cause and extent of the
+    loss.
+    <h4>Survey Report: </h4>
+    As laid down in the Insurance Act, 1938, if the amount of loss is Rs
+    20,000/- or more, a licensed Surveyor is to be appointed to assess
+    the loss. Surveyor has to be appointed within 72 hours by the
+    insurance company. Surveyor would visit the site of happening and
+    submit his report to the insurer including therein –<br><br>
+    ✔ Cause of loss<br>
+    ✔ Quantum of the loss<br>
+    ✔ Comments about policy conditions to be followed<br>
+    ✔ Comments about admissibility of claim and compliance of
+    terms and conditions of the policy by the insured.
+    In marine branch, the Surveyor’s fee is initially borne by the
+    insured. It &nbsp;&nbsp;&nbsp;&nbsp;is reimbursed if the insurer accepts the claim.<br><br>
+    <h4>First Information Report (FIR):</h4>
+    First information report is information to police authorities
+    generally regarding –<br><br>
+    ✔ Major vehicular accident injuring third parties or damaging<br>
+    ✔ Theft, burglary or housebreaking cases
+    their properties<br>
+    ✔ Fire incident involving injuries to any persons or causing
+    major property loss<br>
+    ✔ Cases involving financial frauds by employees or others
+    cause of loss to the insured<br>
+    ✔ Death of an individual due to accident
+    From the insurer’s point, FIR is the document which gives
+    information about the intimation of crime, circumstances and likely
+    cause of loss &nbsp;&nbsp;&nbsp;&nbsp;and likely persons involved and approximate value of
+    loss. 
+    <h4>Death Certificate and Post Mortem Report:</h4>
+    Death Certificate is required for claim under personal accident and
+    health insurance policies. It is also required in case of cattle or
+    other animal insurances. Death certificate relating to humans is
+    issued by Municipality or Gram Panchayat of the area in which the
+    deceased was residing or died. For cattle and animals, it is issued
+    by a veterinary surgeon treating the animal or who attended it at
+    the time of the death. Post Mortem Report (PMR) is examination of
+    dead body, generally conducted in accidental or doubtful deaths,
+    for testing various organs to find out the cause of death. The post
+    mortem is performed at government or local body’s hospital. In
+    case of insurance of animals post mortem report is required, which
+    is conducted by a veterinary surgeon.
+    <h4>Specific Documents in addition the claim form:</h4>
+    <h4>Motor Insurance Claims:</h4>
+    ✔ Estimate of repairs, repair bills<br>
+    ✔ Survey report<br>
+    ✔ Vehicle documents<br>
+    ✔ FIR in case of theft of vehicle or injury or damage to a third
+    party/ property<br>
+    <h4>Cattle Insurance claims:</h4>
+    ✔ Death Certificate on insurance company’s form.
+    In case of death of animal insured under Integrated Rural
+    Development Programme (IRDP) or other similar scheme,
+    death certificate may be issued by Panchayats.<br>
+    ✔ Post mortem report.<br>
+    ✔ Ear tag.<br>
+    ✔ Valuation certificate by veterinary doctor.<br>
+    ✔ In case of claims for disablement veterinary doctor’s
+    certificate with treatment details.<br>
+    <h4>Poultry Insurance:</h4>
+    👉 Veterinary doctor post mortem report of sample birds<br>
+    👉 Daily records of mortality, feeding etc.<br>
+    👉 Purchase invoice for birds<br>
+    👉 Photographs, medical bills etc.
+    <h4>KYC Documents:</h4>
+    In order to avoid money-laundering, KYC norms are carried out at
+    settlement stage where pay-out amount is more than one lakh. In
+    case where payments are made to service providers such as
+    hospitals/garages/repairers etc. the KYC norms are applied on the
+    customers on whose behalf they act. Documents relevant to KYC
+    are:—<br>
+    👉 Proof of Identity – any one out of the specified list for this
+    purpose<br>
+    👉 Proof of Residence – any one out of the specified list
+    For Micro insurance policies, bank passbook or bank statement
+    giving name and residence may be acceptable. 
+    </p>
+    </div>
+<style>.sub-tabs {
+    margin: 20px 0;
+}
+
+.sub-tab-btn {
+    padding: 10px 14px;
+    margin-right: 6px;
+    border: none;
+    border-radius: 6px;
+    background: #ddd;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.sub-tab-btn.active {
+    background: #004aad;
+    color: #fff;
+}
+
+.sub-tab-content {
+    display: none;
+    background: #f9f9f9;
+    padding: 18px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.sub-tab-content.active {
+    display: block;
+}
+.bullet-list {
+    padding-left: 20px;
+}
+.bullet-list li {
+    margin-bottom: 8px;
+}
+.risk-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 15px;
+}
+
+.risk-table th,
+.risk-table td {
+    border: 1px solid #000;
+    padding: 10px;
+    text-align: left;
+}
+
+.risk-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+</style>
+`],
+    [
+        "Introduction to Insurance",
+`<h2>POS General Insurance Products </h2>
+
+<!-- Moduel-4 -->
+<div class="sub-tabs">
+    <button class="sub-tab-btn active" onclick="showSubTab('POS – Guidelines')">
+        POS – Guidelines 
+    </button>
+    <button class="sub-tab-btn" onclick="showSubTab('Motor Insurance')">
+        Motor Insurance 
+    </button>
+    <button class="sub-tab-btn" onclick="showSubTab('Overseas Travel Insurance')">
+        Overseas Travel Insurance
+    </button>
+
+</div>
+
+<!-- Sub Tab Content -->
+<div class="sub-tab-content active" id="POS – Guidelines">
+    <h3>Guidelines on Point of Sales Person - Non Life and Health Insurers: </h3>
+    <p>
+        <h4>Topics Covered:</h4>
+        👉1. POS – General Insurance including Stand - Alone Health Insurance<br>
+        👉2. POS – Categories of POS Products and Salient Features of POS Products<br><br>
+        In order to facilitate the growth of insurance business in the
+        country and to enhance insurance penetration and insurance
+        density, the IRDAI as part of its developmental agenda issued
+        guidelines on "Point of Sales Person" on 26th October, 2015.
+        These guidelines apply to point of sales person and those engaging
+        the "Point of Sales Person".<br><br>
+        Every policy sold through the point of sales person is separately
+        identified and prefixed by the name - POS - (Name of Product).
+        Initially, the Point of Sales Person was authorised to sell the
+        following five (5) pre-underwritten products:<br><br>
+        👉1. Motor Comprehensive Insurance Package Policy for Twowheeler, private car and commercial vehicles<br>
+        👉2. Third Party liability (Act only) Policy for Two-wheeler,
+        private car and commercial vehicles<br>
+        👉3. Personal Accident Policy<br>
+        👉4. Travel Insurance Policy<br>
+        👉5. Home Insurance Policy <br><br>
+        Subsequently, the following products have been added to be
+        marketed by the POSP.<br><br>
+        👉1. Crop Insurance with a sum insured limit of Rs.1 lakh per
+        acre for all kinds of crops<br>
+        👉2. Hospital cash policy where a fixed benefit in the form of
+        cash for every day of hospitalization with a limit of Rs.1 lakh
+        per individual.<br>
+        👉3. Critical illness policy which covers 8-9 critical illnesses with
+        the maximum sum insured limit of Rs.3 lakhs per individual.<br>
+        👉4. Pradhan Mantri Fasal Bima Yojana (PMFBY)<br>
+        👉5. Weather Based Crop Insurance Scheme (WBCIS)<br>
+        👉6. Coconut Palm Insurance Scheme (CPIS)<br>
+        👉7. Cattle / Live Stock<br>
+        👉8. Agricultural Pump Set Insurance<br><br><br>
+        (There is no cap on sum insured for item no. 4, 5, 6 Government
+        sponsored Crop Insurance Schemes)
+
+    </p>
+</div>
+<div class="sub-tab-content active" id="Motor Insurance">
+    <h3>Motor Insurance</h3>
+    <p>
+    Must be taken by a vehicle owner of a vehicle plying on public
+    roads whose vehicle is registered in her / his name with the
+    Regional Transport Authority in India;<br><br>
+    Under The Motor Vehicles Act, 1988, it is mandatory for every
+    owner of a vehicle plying on public roads, to take an insurance
+    policy, to cover the amount, which the owner becomes legally
+    liable to pay as damages to third parties as a result of
+    accidental death, bodily injury or damage to property.
+    A certificate of Insurance must be carried in the vehicle as a proof
+    of such insurance.
+    <h4>Third - Party Insurance:</h4>
+    An insurance policy purchased for protection against the legal
+    actions of another party. Purchased by the insured (first party)
+    from an insurance company (second party) for protection against
+    another party's claims (third party) for liability arising out of the
+    action of the insured is called "Liability Insurance" as well as two
+    popular and important types of covers:
+    <h4>Act [Liability] Only Policy:</h4>
+    As per Motor Vehicles Act, it is mandatory for any vehicle plying in
+    public place to insure liabilities towards third parties and
+    passengers in Public Service Vehicle for example: bus, taxi etc.
+    <h4>Package Policy/Comprehensive Policy:</h4>
+    Package Policy/Comprehensive Policy: [own damage + third party
+    liability]. The sum insured of a vehicle in a motor policy is referred
+    to as Insured's Declared Value (IDV).<br><br>
+    Rating / premium calculation depends on factors like the insured's
+    declared value, cubic capacity, geographical zone, age of the
+    vehicle etc.
+    <h3>Personal Accident Insurance </h3>
+    If a person dies or is disabled totally or partially his earnings would
+    completely stop or will reduce to a great extent. This will have
+    adverse effect on insured as well as his family. The policy is
+    available –<br><br>
+    👉 For individuals,
+    👉 For a family consisting of spouse and dependent children
+    only (NOT PARENTS)<br>
+    👉 When a person meets with an accident and sustain bodily
+    injury may result into death, loss of limbs or disability, P.A.
+    policy provides benefits as given in the table here below: <br><br>
+    
+    <table class="risk-table">
+        <thead>
+            <tr>
+                <th>Benefit description</th>
+                <th>Claim amount – as % of sum insured</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1. Death</td>
+                <td>100%</td>
+            </tr>
+            <tr>
+                <td>2. Loss of 2 limbs, both eyes, 1 limb and 1 eye</td>
+                <td>100%</td>
+            </tr>
+            <tr>
+                <td>3. Loss of 1 limb or 1 eye</td>
+                <td>50%</td>
+            </tr>
+            <tr>
+                <td>4. Permanent total disablement</td>
+                <td>100%</td>
+            </tr>
+            <tr>
+                <td>5. Permanent partial disablement</td>
+                <td>% as per type of loss e.g. little finger 4%, thumb 25%, loss of hearing of 1 ear 30%</td>
+            </tr>
+            <tr>
+                <td>6. Temporary total disablement </td>
+                <td>@1% of sum insured per week but not exceeding Rs.5000 per week and for not more than 104 weeks.</td>
+            </tr>
+        </tbody>
+    </table>
+        <br><br>The contingencies 1 to 4 above are called Capital Benefits and in
+        the event of any of these losses the claim is paid inclusive of
+        Cumulative Bonus earned; and policy is called back duly discharged
+        for cancellation.<br><br
+        In addition to the above benefits, if death occurs, the insurer
+        provides for the following benefits without charging any extra
+        premium:<br><br
+        👉 Expenses for carriage of dead body for a fixed amount as
+        stated in the policy<br><br>
+        👉 Education Fund: If the insured had minor dependent
+        children upto the age of 25 years a sum of Rs. 5000 per
+        child for maximum 2 children as Education Fund is also paid.
+        Medical expense reimbursement can also be taken as an add-on
+        benefit with extra premium. The amount payable will be 25% of
+        the admissible claim amount or 10% of the sum insured or actual
+        whichever is lowest.
+        <h4>Exclusions:</h4>
+        (a) Claim for injury or death due to self injury, suicide or
+        attempted suicide<br>
+        (b) Under the influence of intoxicating liquor or drugs<br>
+        (c) Participating in hazardous sports<br>
+        (d) Travelling as crew in an aircraft or as passenger in
+        unscheduled aircraft<br>
+        (e) Service in armed forces<br>
+        (f) By venereal disease or insanity or childbirth or pregnancy<br>
+        (g) War, civil war and similar situations.<br><br>
+        Death/Permanent Total Disability/Permanent Partial Disability
+        must occur within 12 months of accident. The policy is 24x7 and
+        covers accident anywhere in the world; but claim is payable in India
+        in Indian currency.
+        <h4>Eligibility:</h4>
+        👉 The premium is charged on the basis of the occupation of
+        the proposer and the contingencies opted for.<br>
+        👉 Eligibility age 5 to 70 years depending upon company to
+        company.<br>
+        👉 Policy for a family can also be taken. Family means
+        husband, wife and dependent children. Family discount is
+        given on the premium.<br>
+
+                <h4>Janata Personal Accident Policy:</h4>
+        The policy is similar to PA above, with following differences:<br><br>
+        (a) The minimum sum insured is Rs. 25,000<br>
+        (b) Maximum Rs, 1,00,000 in multiples of Rs 25,000.<br>
+        (c) Education Fund and medical expenses are not covered<br>
+        (d) Cumulative Bonus is not available<br>
+        (e) The policy can be taken for a maximum of 5 years at a
+        time.<br>
+        <h4>Gramin Personal Accident Policy:</h4>
+        (a) Applicable to all persons residing in rural areas only.<br>
+        (b) One policy per person. However person having a Gramin
+        Policy may also take one Janata Policy<br>
+        (c) No medical examination<br>
+        (d) Age group: 10 to 70 years<br>
+        <h4>Government Schemes:</h4>
+        Sometimes covers are issued by the insurance companies based on
+        schemes drafted by the Government. Pradhan Mantri Suraksha
+        Bima Yojana sum insured Rs.2,00,000. Premium per year Rs. 12
+        only paid through their bank account. Cover in respect of Death
+        Rs.2,00,000, Loss of 2 limbs, both eyes, 1 limb and 1 eye
+        Rs.2,00,000. Loss of 1 limb or 1 eye Rs.1,00,000. Cover is available
+        for bank account holders. Aadhaar Card is necessary as part of KYC
+        validation. Cover given by nationalized insurance companies and
+        also by other insurance companies who agree to follow applicable
+        rules and regulations for issuance of such covers. Standing
+        instruction could be given to the bank for debiting their account to
+        pay Annual renewal premium.
+    </p>
+</div>
+<div class="sub-tab-content active" id="Overseas Travel Insurance">
+    <h3>Overseas Travel Insurance:</h3>
+    <p>
+        👉 The policy is available to persons travelling overseas.<br>
+        👉 The cover is for emergency medical treatment that may be
+        needed when on tour.<br>
+        👉 Persons between the ages of 5 years to 70 years can be
+        covered. Children from 3 years onward can be covered, if
+        accompanying parents.<br>
+        👉 Premium is payable in Rupees but cover is in US dollars. Age
+        and duration of trip are factors deciding the premium.<br>
+        👉 The cover given is either worldwide excluding USA and
+        Canada or including USA and Canada.
+        <h4>Coverage:</h4>
+        (a) Medical expense and Repatriation. An excess of
+        applicable for each and every claim<br>
+        (b) Personal Accident US $50000. For children restricted to US
+        $2000. Only death and permanent total disability are
+        covered<br>
+        (c) Loss of checked baggage. Excess is applicable for the claim<br>
+        (d) Delay of checked baggage. Delay should exceed 12 hours
+        from scheduled date of arrival at final overseas destination
+        (not applicable to return journey home)<br>
+        (e) Loss of passport limited amount and subject to an excess
+        for the claim<br>
+        (f) Personal Liability<br><br>
+        The journey must commence within 14 days of the date of
+        commencement of the policy.
+        <h4>Special Conditions:</h4>
+        As this is a medical and PA cover, the terms of Mediclaim and PA
+        apply with following modifications:<br><br>
+        (a) The policy is for emergency medical treatment and
+        not for planned hospitalization<br>
+        (b) In a medical emergency, the claim settling agency
+        mentioned in the policy is to be contacted
+        immediately and assistance sought for the
+        treatment. All other claims to be filed on return to
+        India.<br>
+        (c) Existing health conditions are not covered. Travel
+        against medical advice is also not covered. 
+    </p>
+</div>       
+
+`
+    ],
+    [
+        "Introduction to Insurance",
+`<h2>POS General Insurance Products </h2>
+
+<!-- Moduel-5 -->
+<div class="sub-tabs">
+    <button class="sub-tab-btn active" onclick="showSubTab('Health Insurance')">
+        Health Insurance 
+    </button>
+    <button class="sub-tab-btn" onclick="showSubTab('Special Features of the Policy')">
+        Special Features of the Policy 
+    </button>
+    <button class="sub-tab-btn" onclick="showSubTab('Critical Illness Policy')">
+        Critical Illness Policy
+    </button>
+    <button class="sub-tab-btn" onclick="showSubTab('Hospital Daily Cash Benefit')">
+        Hospital Daily Cash Benefit
+    </button>
+    <button class="sub-tab-btn" onclick="showSubTab('Free Look Period')">
+        Free Look Period
+    </button>
+
+</div>
+
+<!-- Sub Tab Content -->
+<div class="sub-tab-content active" id="Health Insurance">
+    <h3>Health Insurance:</h3>
+    <p>
+    <img src="{{ url_for('static', filename='images/partners/health_insurance.png') }}"
+     alt="health_insurance"
+     style="width:500px; display:block; margin:20px auto; border-radius:40px;"><br><br>
+    The Insurance Laws (Amendment) Act, 2015 defines the “health
+    insurance business as contracts which provide for sickness benefits 
+    or medical, surgical or hospital expense benefits, whether inpatient or out-patient, travel cover and personal accident cover.”
+    Each insurance company has designed products of its own to meet
+    the customer demand. Uniformity therein may not be possible, but
+    the coverage and main features are similar.
+    <h4>Hospitalization Insurance Policy:</h4>
+    Popularly known as ‘Mediclaim’, the hospitalization policy covers
+    medical expenses of treatment of in-patients (persons hospitalized
+    for minimum 24 hours) with some additional features.
+    <h4>Coverage:</h4>
+    ✔ Room and board charges<br><br>
+    ✔ Consultants’, surgeons’, anaesthetists’ fees, including that
+    of nurses etc.<br><br>
+    ✔ Blood transfusion, medicines, lab tests and other
+    investigations<br><br>
+    ✔ Operation theatre, anaesthesia, artificial limbs etc.<br><br>
+    ✔ Ambulance Charges for a specified amount 
+    </p>
+</div>
+<div class="sub-tab-content active" id="Special Features of the Policy">
+    <h3>Special Features of the Policy:</h3>
+    <p>
+    <h4>24 hours hospitalization in the Hospital:</h4>
+    To avail the claim, the insured has to stay in a registered nursing
+    home/ hospital for a minimum of 24 hours.
+    <h4>Day Care Treatment:</h4>
+    There are certain diseases like cataract, dialysis, chemotherapy,
+    radiotherapy etc. the treatment of which does not require 24 hours
+    hospitalization. These come under ‘Day care treatment’.
+    <h4>Domiciliary Hospitalization:</h4>
+    According to this feature, the insured can get the claim while being
+    treated at home, provided the following conditions are met;<br><br>
+    ✔ The Patient is so critical that he cannot be taken to a
+    hospital<br><br>
+    ✔ No bed is available in the hospital where the treating doctor
+    is visiting. However, there is a ‘waiting period’ of 3 days for
+    this feature.
+    <h4>Pre and Post Hospitalization Charges:</h4>
+    ✔ <strong>Pre hospitalization expenses</strong> could be in the form of tests,
+    medicines, doctors’ fees etc. Such expenses are relevant
+    and pertaining to the hospitalization are covered under the
+    &nbsp;&nbsp;&nbsp;&nbsp;health policies.<br><br>
+    ✔ <strong>Post hospitalization expenses:</strong> After stay in the hospital, in
+    most cases there would be expenses related to recovery
+    and follow-up.Generally 30 days pre hospitalization and 60 &nbsp;&nbsp;&nbsp;&nbsp;days post
+    hospitalization are covered. However, this may vary from company
+    to company.
+    <h4>Cumulative Bonus:</h4>
+    Cumulative Bonus means an increase in the sum assured granted
+    by the insurer without an associated increase in premium.
+    It was the practice to provide incentive to clients to renew the
+    policy for which purpose the insurance company would give
+    additional sum insured of 5% free of cost at the time of claim free
+    renewal upto certain maximum say 30% or 50%.<br><br>
+    Health Insurance Regulations 2013 provide that insurers may offer
+    cumulative bonus on indemnity based health insurance policies,
+    which shall be stated explicitly in the Prospectus and the Policy
+    document.<br><br>
+    If a claim is made in any particular year, the cumulative bonus
+    accrued may be reduced at the same rate at which it is accrued.
+    Cumulative Bonus is not allowed on benefit based policies.
+    <h4>Who can take the Policy?</h4>
+    ✔ Individuals<br>
+    ✔ Members of a family on a floater basis (spouse, two
+    children below the age of 25 years and parents)<br>
+    ✔ Groups: This policy can also be taken by a group owner
+    provided who could be an employer, an association, a
+    bank’s credit card division, where a single policy covers the
+    &nbsp;&nbsp;&nbsp;&nbsp;entire group of individuals.
+    <h4>Age Limit:</h4>
+    The eligibility varies from insurer to insurer, from as young as 3
+    months to 80 years and above. Some companies have no limit for
+    age at entry. All companies have to provide lifelong renewals as per
+    IRDA Regulations.
+    <h4>Exclusions:</h4>
+    1. Pre existing conditions/diseases that the proposer is suffering
+    from even prior to cover being obtained for the first time—(but
+    the exclusion period not to exceed 48 months)<br>
+    2. 30 days waiting period in general for other than accidents<br>
+    3. 24 months waiting period for certain specific diseases like
+    cataract, hernia, hydrocele, piles, gout etc.<br>
+    4. War and allied perils, nuclear weapon /ionizing radiation<br>
+    5. Plastic /cosmetic surgery unless medically recommended<br>
+    6. Preventive measures like vaccination inoculation<br>
+    7. Cost of spectacles, contact lens, hearing aid<br>
+    8. Dental treatment unless requiring hospitalization<br>
+    9. Congenital diseases, defects, anomalies<br>
+    10. Psychiatric psychosomatic disorders<br>
+    11. HIV/AIDS<br>
+    12. Participation in hazardous sports<br>
+    13. Hospitalisation primarily for diagnostic purposes, lab
+    examinations, unrelated to any illness disease requiring
+    hospitalization<br>
+    14. Pregnancy child birth any complications thereof<br>
+    15. Naturopathy treatment<br>
+    This list is only illustrative. Actual exclusions may vary from product
+    to product and company to company. 
+</div>
+<div class="sub-tab-content active" id="Critical Illness Policy">
+    <h3>Critical Illness Policy:</h3>
+    <p>
+    • The policy covers specified dreaded diseases like cancer, 
+    kidney failure, stroke, multiple sclerosis, heart valve 
+    replacement etc.<br><br> 
+    • The special feature being that the sum insured is fully paid if 
+    during the currency of the policy insured suffers from one 
+    of the covered diseases and survives for 30 days after 
+    confirmation of existence of such disease, irrespective of 
+    actual amount spent on the treatment of the said disease.<br><br>  
+    • This cover is also given as an add-on cover under 
+    hospitalization policy and is also available separately.<br><br>  
+    • It is a Benefit Policy and not an indemnity policy.<br><br>  
+    • The waiting period is 90 days from inception of policy for 
+    any benefit. 
+    </p>
+</div>
+<div class="sub-tab-content active" id="Hospital Daily Cash Benefit">
+    <h3>Hospital Daily Cash Benefit: </h3>
+    <p>• The policy pays at agreed rate per day of hospitalization, 
+    say Rs. 500 or 1,000 or 2,000 per day.<br><br>
+    • Upto certain specific number of days say 30 or 60 during a 
+    policy period.<br><br> 
+    • Policy is usually issued as a complementary, to the 
+    “hospitalization” type of policy, but could be issued 
+    independently also.<br><br> 
+    Cashless facility provided and smart card is issued.  
+    <h4>Portability:</h4> 
+    • Portability means transfer of the credit gained by the 
+    insured for pre-existing conditions and time bound 
+    exclusions if the policy holder chooses to switch from one 
+    insurer to another or from one plan of the same insurer, 
+    provided the previous policy has been maintained without 
+    any break.<br><br>
+    • A break in policy occurs when the premium due on a given 
+    policy is not paid on or before the premium renewal date or 
+    within 30 days thereof.<br><br> 
+    • Portability ensures that when a policyholder changes his 
+    health insurance policy from one insurance company to 
+    another, he does not lose the benefits he has accumulated. 
+    <h4>Cashless Facility:</h4> 
+    Insurance Companies have tie up 
+    arrangements with network of hospitals. If a 
+    policyholder takes treatment in any of these 
+    hospitals, there is no need for the insured 
+    person to pay the hospital bills. The 
+    insurance company through its Third Party 
+    Administrator (TPA) will arrange direct payment to the hospital. 
+    <h3>Health insurance of life insurers:</h3> 
+    The product is similar with regard to the cover, exclusions and 
+    eption being the 
+    The product is similar with regard to the cover, exclusions and 
+    conditions of the Mediclaim Policy the only exce
+    cash component is provided for surgeries and illnesses basis.
+    surgeries and illnesses basis.
+    </p>
+</div>
+<div class="sub-tab-content active" id="Free Look Period">
+    <h3>Free Look Period:</h3>
+    <p>As per IRDAI Regulations issued in February 2013, all health 
+    Free Look Period or 
+    As per IRDAI Regulations issued in February 2013, all health 
+    insurance policies are required to have a Free Look Period 
+    Cooling Period of 15 days from the date of receipt of policy 
+    document.<br><br>
+    of 15 days from the date of receipt of policy 
+    During this period, if the policyholder has bought a policy and 
+    disagrees to any terms and conditions of the policy, he/she can 
+    return it and get a refund subject to some deductions for expenses. 
+</div>
+`],
+    [
+        "Introduction to Insurance",
+`<h2>POS General Insurance Products </h2>
+
+<!-- Moduel-5 -->
+<div class="sub-tabs">
+    <button class="sub-tab-btn active" onclick="showSubTab('Health Insurance')">
+        Health Insurance 
+    </button>
+    <button class="sub-tab-btn" onclick="showSubTab('Home & Crop Insurance Policy')">
+        Home & Crop Insurance Policy 
+    </button>
+    <button class="sub-tab-btn" onclick="showSubTab('Weather Based Crop Insurance Scheme (WBCIS)')">
+        Weather Based Crop Insurance Scheme (WBCIS)
+    </button>
+    <button class="sub-tab-btn" onclick="showSubTab('Insurance of Coconut Palm')">
+        Insurance of Coconut Palm
+    </button>
+
+
+</div>
+
+<!-- Sub Tab Content -->
+<div class="sub-tab-content active" id="Home & Crop Insurance Policy">
+    <h3>Home & Crop Insurance Policy:</h3>
+    <p>
+        <img src="{{ url_for('static', filename='images/partners/home_insurance.jpg') }}"
+     alt="home_insurance"
+     style="width:500px; display:block; margin:20px auto; border-radius:40px;"><br><br>
+
+
+        👉 Home/householder's insurance policy provides coverage on
+        losses incurred to the insured's property from hazards or
+        events named in the policy. The perils covered will be clearly
+        spelt out.<br><br>
+        👉 Home/Householder's insurance covers the house structure and
+        its contents against fire, riots, bursting of pipes, earthquakes 
+        etc. apart from the structure, it covers the contents excluding
+        money &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;against burglary, housebreaking, larceny and theft.<br><br>
+        👉 Methods of fixing the Sum Insured; Market Value (MV) and
+        Reinstatement Value (RIV)
+        <h4>Crop Insurance</h4>
+        Agriculture sector is demographically the most significant and broadest economic
+        sector in India. Even a marginal dip in the agricultural production has trickled down effect on the whole economy.
+        The variation in production is directly affected by many unfavourable such as pest attacks, variations in weather conditions such as rainfall, temperature, humidity, etc. Thus, the need of the hour is
+        to secure the yield and yield-based losses.
+        <h4>Who can take this policy?</h4>
+        👉 Farmers<br><br>
+        👉 Banks<br><br>
+        👉 Financial Institutions / Companies extending credit facility
+        for Agricultural Operations, whose repayments are affected
+        by yield factors.<br><br>
+        <h4>What is covered under this policy?</h4>
+        👉 This policy covers<br><br>
+        👉 Any shortfall in yield resulting due to Natural Fire and
+        lightning, Storm, Hailstorm, cyclone, Typhoon, Tempest, Hurricane, Tornado, Flood, Inundation, Landslide, Drought,
+        Dry spells, Pests/ Diseases, etc.<br><br>
+        👉 Any loss due to prevented sowing / planting risk due to
+        deficit rainfall or adverse seasonal conditions<br><br>
+        👉 Any post harvest Losses<br><br>
+        👉 Premium chargeable depends on various factors such as the
+        type of crop, location, historical yield data, calamity years in
+        the specified area and the indemnity level of yield crop.<br><br>
+        👉 Claims are paid for loss of average yield due to the risks
+        covered. Crop insurance does not cover fidelity guarantee.
+        <h4>Pradhan Mantri Fasal Bima Yojana (PMFBY):</h4>
+        <h5>(Launched 13th January 2016)</h5>
+        This scheme is implemented in association with respective State
+        Governments. The scheme is administered under the Ministry of
+        Agriculture and Farmers Welfare, Government of India.<br><br>
+        👉 There is a uniform premium of only 2% to be paid by
+        farmers for all Kharif crops and 1.5% for all Rabi crops. In
+        case of annual commercial and horticultural crops, the
+        premium to be paid is only 5%.<br><br>
+        👉 The premium rates to be paid by farmers are very low and
+        balance premium will be paid by the Government to
+        provide full insured amount to the farmers against crop loss
+        in any natural calamities.<br><br>
+        👉 There is no upper limit on Government subsidy. Even if
+        balance premium is 90%, it will be borne by the
+        Government.<br><br>
+        👉 Earlier, there was a provision of capping the premium rate
+        which is low claims being paid to farmers. Now this is
+        removed and farmers will get claim against full sum insured
+        without any reduction.<br><br>
+        👉 The use of technology will be encouraged to a great extent.
+        Smart phones, Remote sensing drone and GPS technologies
+        will be used to capture and upload data of crop cutting to
+        reduce the delays in the claim payment.<br><br>
+        👉 Allocation of the scheme presented in budget 2016-2017 is
+        Rs.5,550 crores.<br><br>
+        👉 The insurance plan will be handled under s single insurance
+        company, Agriculture Insurance Company of India (AIC).<br><br>
+        👉 PMFBY is a replacement scheme of National Agriculture
+        Insurance Scheme (NAIS) and Modified National Agriculture
+        Insurance Scheme (MNAIS) and hence exempted from the
+        service tax.<br><br>
+        <h4>Objectives of the Scheme:</h4>
+        i. to provide insurance coverage and financial support to the
+        farmers in the event of failure of any of the notified crop as
+        a result of natural calamities, pests and diseases;<br>
+        ii. to stabiles the income of farmers to ensure their continuous
+        process in farming;<br>
+        iii. to encourage farmers to adopt innovative and modern
+        agricultural practices;<br>
+        iv. to ensure flow of credit to the agriculture sector.
+        <h4>Coverage of Risk:</h4>
+        Following states of the crop and risks leading to crop loss are
+        covered under the scheme.<br><br>
+        👉 <strong>Prevented Sowing / Planting Risk:</strong> insured area is
+        prevented from sowing planting due to deficit rainfall or
+        adverse seasonal conditions;<br>
+        👉 <strong>Standing Crop (Sowing to Harvesting):</strong> comprehensive risk
+        insurance is provided to cover yield losses due to nonpreventable risks, viz. drought, dry spells, flood, inundation,
+        pests and diseases, landslides, natural fire and lightening, storm, hailstorm, cyclone, typhoon, tempest, hurricane and
+        tornado.<br>
+        👉 <strong>Post-Harvest Losses:</strong> coverage is available only up to a
+        maximum period of two weeks from harvesting for those
+        crops which are allowed to dry in cut and spread condition
+        in the field after harvesting against specific perils of cyclone
+        and cyclonic rains and unseasonal rains.<br>
+        👉 <strong>Localized Calamities:</strong> Loss/damage resulting from
+        occurrence of identified localized risks of hailstorm,
+        landslide and inundation affecting isolated farms in the
+        notified area.<br><br>
+        <h4>Area Approach Basis:</h4>
+        The scheme shall be implemented on an "Area Approach Basis"
+        (i.e. defined areas) for each notified crop for widespread
+        calamities. The assumption that all the insured farmers, in a Unit of
+        Insurance, should be defined as "Notified Area" for a crop, face
+        similar risk exposures, incur to a large extent, identical cost of
+        production per hectare, earn comparable farm income per hectare,
+        and experience similar extent of crop loss due to the operation of
+        an insured peril, in the notified area. The unit of insurance can be
+        demographically mapped with region having homogenous risk
+        profile for the notified crop.<br>
+        For risks of localized calamities and post-harvest losses on account
+        of defined peril, the unit of insurance for loss assessment shall be
+        the affected insured field of the individual farmer.
+    </p>
+</div>
+<div class="sub-tab-content active" id="Weather Based Crop Insurance Scheme (WBCIS)">
+    <h3>Weather Based Crop Insurance Scheme (WBCIS):</h3>
+    <p>
+        <h4>Who can take this policy?</h4>
+        👉 Farmers<br><br>
+        👉 Banks<br><br>
+        
+        👉 Financial institutions / companies extending credit facility
+        for agricultural/ non agricultural seasonal operations,
+        whose repayments are affected by weather conditions
+        <h4>What is covered under this policy?<h4>
+        <h5>Policy covers</h5>
+        👉 Cost of input - Covers the diminished agricultural
+        output/yield resulting due to deviation from optimum
+        weather requirement of a crop within a specific geo
+        graphical location and specified time period<br><br>
+        👉 Increased operational costs of agricultural or nonagricultural economic activity resulting from deviation of
+        Observed Weather index from Strike index<br><br>
+        👉 Premium chargeable depends on various factors such as the
+        type of crop, location, historical weather data, cost of
+        cultivation in the specified area and the acreage under
+        cultivation<br><br>
+        <h4>Documents required:</h4>
+        i. Land record document (for the standing crop against which
+        insurance is taken)<br><br>
+        ii. Photo ID proof
+        <h4>Coconut Palm Insurance Scheme (CPIS):</h4>
+        1. In collaboration with Coconut Development Board, a
+        comprehensive coconut life insurance product.<br><br>
+        2. Insurance based on Named perils leading to death /
+        permanent damage to coconut palm<br><br>
+        3. Maximum liability is based on age of coconut palm and
+        discounted future value<br><br>
+        
+        <strong>Coconut Palm Insurance Scheme</strong> is a mechanism for providing
+        effective risk management aid to those growers who are likely to
+        be impacted by non-preventable natural factors, pests & diseases,
+        etc.
+        <h4>Coverage:</h4>
+        The insurance cover shall cover damage / losses to coconut palm
+        and / or nut yield arising out of non-preventable natural factors.
+        <h4>Insurance of Nut Yield:</h4>
+        The insurance compensates the insured against the likelihood of
+        diminished nut output/ yield resulting from non-preventable
+        natural factors, such as Natural Fire & Lightning, Storm, Hailstorm,
+        Cyclone, Typhoon, Tempest, Hurricane, Tornado, Flood,
+        Inundation, Landslide and Pests/Diseases etc. 
+    </p>
+</div>
+<div class="sub-tab-content active" id="Insurance of Coconut Palm">
+    <h3>Insurance of Coconut Palm:</h3>
+    <p>
+        The insurance compensates the insured in the event of total loss of
+        the individual palm/tree in the insured plantation from the 4th
+        year to the 60th year. In the first year, a waiting period of three
+        months from the date of transplanting shall apply. The insurance
+        coverage and claim assessment shall be on individual tree basis.
+        The insurance is against perils like Storm, Hail storm, Cyclone,
+        Typhoon, Tornado, Heavy rains, Flood, Inundation, severe Drought,
+        Fire, Lightning, Earthquake, Landslide, Riot, Strike and Pests &
+        Diseases of widespread incidence.<br><br>
+        Sum Insured: For section – 1 (nut yield), Sum insured shall vary
+        from Block to Block and is determined by the Guaranteed Yield of
+        the Block multiplied by the previous year’s average nut price in the
+        respective district.<br><br>
+        For section – 2, Sum insured is based on the average input cost of
+        the plantation according to the age of the plantation.
+        <h4>Premium:</h4>
+        The premium is determined on the basis of variability in the
+        historical Block level nut yield and age of the palm.
+        <h3>Cattle / Live Stock:</h3>
+        The term ‘Livestock’ refers to
+        the domesticated animals raised
+        in an agricultural setting to
+        produce commodities such as
+        food, fibre and labour. ‘Livestock
+        Insurance’ includes ins
+        cattle, poultry and fisheries etc.<br><br>
+        Insurance of animals covered on the similar lines are cattle, sheep
+        & goat, hen, rabbits, camels, horses, elephants etc.<br><br>
+        Cattle Insurance: The word “Cattle” refers to:<br><br>
+        👉 Milch cows and buffaloes (2 to 12 years)<br><br>
+        👉 Calves / Heifers<br><br>
+        👉 Stud Bulls<br><br>
+        👉 Bullocks [castrated bulls] and castrated male buffaloes,
+        whether indigenous, exotic or cross-bred
+        <h4>Explanation:-</h4>
+        1. Exotic animal means an animal with both parents of foreign
+        breed. This includes animals born in India as well as
+        born abroad.<br><br>
+        2. Cross-bred animal means an animal with one parent of
+        foreign breed.<br><br>
+        <strong>Coverage:</strong> Only Death of the animal is covered due to Act of God
+        (AOG) Perils (natural calamities), Disease occurring during the
+        Policy period, Surgical operations & Riot and Strike. Theft of the
+        animal is not covered. There is a waiting period of 15 days under
+        the Cattle Policy.<br><br>
+        <h4>Poultry Insurance:</h4>
+        Poultry means birds like chicken, hen etc. they are categorized as
+        [a] layers [b] broilers [c] parent stock (hatchery). Under Poultry
+        insurance, ‘Good Features’ discount of 5% is allowed for farms
+        having good features like having own veterinary officer, dead birth
+        disposal system and sophisticated equipments etc.
+
+        The insurance is on flock/lot basis and not single bird basis. No
+        identification of individual bird is required.
+        Insurance is similar to cattle insurance i.e. death is covered due to
+        accident or diseases only.
+        Exclusions include transport by any means, natural mortality or
+        unknown causes, improper management or overcrowding.
+        <h4>Agricultural Pumpset Insurance</h4>
+        The insurance is for centrifugal pump sets of upto 25 HP (electrical
+        or diesel) of approved makes used for agricultural purpose.
+        The policy covers loss due to unforeseen and sudden physical
+        damage by the perils of: fire, lightning, riot strike, malicious
+        damage, terrorism, mechanical or electrical breakdown, burglary
+        [by violent forcible entry and provided the pump set is kept in a
+        locked enclosure]<br><br>
+        👉 Claim intimation letter to insurer<br><br>
+        👉 Repair estimate on bills ( in case of damage)<br><br>
+        👉 Police Report ( in case of burglary)<br><br>
+        👉 Survey report 
+    </p>
+</div>
+`],
+
+
+    
+    [
+        "General Insurance Basics",
+        "1. What is General Insurance?",
+        "General insurance provides coverage against non-life risks such as loss or damage to property, health, vehicles, travel, or liabilities arising from accidents or negligence.",
+        "2. Types of General Insurance",
+        "• Health Insurance: Covers medical expenses and hospitalization.",
+        "• Motor Insurance: Covers damage or loss to vehicles and third-party liability.",
+        "• Property Insurance: Covers risks to homes, offices, or businesses from fire, theft, natural disasters.",
+        "• Travel Insurance: Covers medical emergencies, trip cancellations, and loss of luggage during travel.",
+        "• Liability Insurance: Protects businesses against legal claims from third parties.",
+        "3. Importance of General Insurance",
+        "• Reduces financial burden during emergencies.",
+        "• Ensures continuity of business or personal finances.",
+        "• Provides peace of mind against unpredictable risks.",
+        "• Encourages risk management and proactive planning."
+    ],
+    [
+        "Components of an Insurance Policy",
+        "1. Key Elements of a Policy",
+        "• Sum Assured: Maximum financial amount covered under the policy.",
+        "• Premium: Payment made by the policyholder to keep the policy active.",
+        "• Policy Term: Duration for which the policy provides coverage.",
+        "• Nominee: Person who will receive the benefit in case of death of the insured.",
+        "• Riders: Additional benefits or coverage options added to the base policy.",
+        "2. Conditions and Obligations",
+        "• Full disclosure of information is mandatory.",
+        "• Compliance with policy terms is necessary for claim settlement.",
+        "• Regular premium payment is required to keep the policy active.",
+        "3. Policy Document",
+        "• Contains terms, conditions, benefits, exclusions, and claim procedure.",
+        "• Serves as a legal contract between the insurer and policyholder."
+    ],
+    [
+        "Risk & Underwriting",
+        "1. Understanding Risk",
+        "• Risk refers to the possibility of financial loss due to uncertain events.",
+        "• Risks can be personal (health, life), property-related, liability-related, or business-related.",
+        "2. Underwriting Process",
+        "• Evaluation of risk before issuing a policy.",
+        "• Determines acceptability of risk and premium rates.",
+        "3. Factors Considered by Underwriters",
+        "• Age, health, occupation, lifestyle habits, and past claims history.",
+        "• Type of asset or coverage being insured.",
+        "4. Purpose",
+        "• Ensures fair premium pricing and financial sustainability of the insurer."
+    ],
+    [
+        "Claims Process",
+        "1. Life Insurance Claims",
+        "• Death Claim: Paid to nominee on death of the insured.",
+        "• Maturity Benefit: Paid at the end of policy term if insured survives.",
+        "• Accidental/Disability Benefits: Paid for accidental death or disability as per policy terms.",
+        "2. General Insurance Claims",
+        "• Intimation: Notify insurer about loss or damage.",
+        "• Assessment: Surveyor evaluates the claim and loss amount.",
+        "• Settlement: Payment made to policyholder after verification.",
+        "3. POSP Role",
+        "• Assist clients with claim documentation.",
+        "• Follow up with the insurance company to ensure timely settlement.",
+        "• Educate clients about claim process and required documents."
+    ],
+    [
+        "Role of POSP",
+        "1. Responsibilities",
+        "• Solicit insurance policies from clients.",
+        "• Explain policy features, benefits, and terms.",
+        "• Collect necessary documents and assist in policy submission.",
+        "• Provide guidance during claim process.",
+        "2. Limitations",
+        "• Cannot collect unauthorized cash or advance premium.",
+        "• Cannot issue policies independently without insurer approval.",
+        "3. Compliance",
+        "• Must follow IRDAI guidelines and ethical practices.",
+        "• Ensure full disclosure and no misrepresentation."
+    ],
+    [
+        "Ethics & Compliance",
+        "1. Importance",
+        "• Builds trust with clients.",
+        "• Ensures fair and transparent insurance practices.",
+        "2. Key Guidelines",
+        "• Avoid misrepresentation or misleading information.",
+        "• Maintain client confidentiality at all times.",
+        "• Follow KYC (Know Your Customer) and AML (Anti-Money Laundering) procedures.",
+        "• Adhere strictly to IRDAI regulations and company policies."
+    ],
+    [
+        "Life Insurance Products",
+        "1. Overview",
+        "• Term, Endowment, ULIP, Money Back, Whole Life.",
+        "2. Optional Riders",
+        "• Accidental Death Benefit.",
+        "• Critical Illness Benefit.",
+        "• Waiver of Premium Benefit.",
+        "• Income Benefit Rider.",
+        "3. Choosing the Right Product",
+        "• Depends on financial goals, risk appetite, and family needs.",
+        "• Evaluate premium affordability and coverage adequacy."
+    ],
+    [
+        "General Insurance Products",
+        "1. Motor Insurance",
+        "• Covers own damage and third-party liability.",
+        "2. Health Insurance",
+        "• Covers hospitalization, critical illness, and outpatient expenses.",
+        "3. Home & Property Insurance",
+        "• Covers fire, theft, natural calamities, and liability risks.",
+        "4. Travel Insurance",
+        "• Covers trip cancellations, medical emergencies, and lost luggage.",
+        "5. Business Insurance",
+        "• Covers property, liability, and operational risks for businesses."
+    ],
+    [
+        "IRDAI POSP Certification",
+        "1. Eligibility",
+        "• Minimum 10th pass + POSP training + successful completion of certification exam.",
+        "2. Benefits",
+        "• Authorized to solicit insurance policies legally.",
+        "• Receive POSP code to act as a recognized agent.",
+        "• Access to company resources, support, and training programs.",
+        "• Enhance career prospects in insurance sales and advisory services."
+    ],
+    [
+        "Premium Calculation",
+        "1. Life Insurance Premiums",
+        "• Factors: Age, sum assured, policy term, health, lifestyle habits.",
+        "2. General Insurance Premiums",
+        "• Factors: Asset value, risk type, coverage, past claims, location.",
+        "3. POSP Role",
+        "• Explain premium calculation to clients.",
+        "• Highlight tax benefits and payment options.",
+        "• Help clients select coverage according to needs and affordability."
+    ],
+    [
+        "Documentation & Record Keeping",
+        "1. Required Documents",
+        "• KYC documents (ID, address proof).",
+        "• Medical history or reports (if applicable).",
+        "• Proposal forms and application forms.",
+        "2. Best Practices",
+        "• Maintain copies of all submitted documents.",
+        "• Submit documents promptly to insurer.",
+        "• Follow up on approvals and claim processing.",
+        "• Keep clear and organized records for auditing and client service."
+    ],
+    [
+        "Summary & Best Practices",
+        "1. Key Takeaways",
+        "• Follow all IRDAI regulations and company guidelines.",
+        "• Avoid misrepresentation and maintain transparency.",
+        "• Assist clients efficiently and maintain accurate records.",
+        "• Understand all products and explain features clearly.",
+        "2. Goal",
+        "• Build trust with clients.",
+        "• Ensure compliance and ethical conduct.",
+        "• Promote insurance awareness and financial literacy.",
+        "• Strengthen professional reputation as a POSP agent."
+    ]
+];
+
+    [
+        "Introduction to Insurance",
+        "1. What is Insurance?","" ,
+        "Insurance is a financial arrangement where an individual or an organization pays a certain amount of money",
+        "Purpose: Transfer risk, provide financial protection, promote savings.",
+        "Key Stakeholders: Insurer, Policyholder, POSP agent."
+    ],
+    [
+        "Regulatory Framework",
+        "IRDAI regulates insurance companies and protects policyholders.",
+        "Key Legislations: Insurance Act 1938, IRDAI Guidelines."
+    ],
+    ["Life Insurance Basics", "Term, Endowment, ULIP, Money Back.", "Benefits: Family protection, financial planning, tax benefits."],
+    ["General Insurance Basics", "Covers non-life risks: motor, health, property, liability.", "Objective: Protect assets against financial losses."],
+    ["Components of an Insurance Policy", "Key Elements: Sum Assured, Premium, Policy Term, Nominee.", "Conditions: Full disclosure, compliance with terms."],
+    ["Risk & Underwriting", "Risk: Possibility of loss.", "Underwriting: Evaluation before policy issuance.", "Factors: Age, health, occupation, lifestyle."],
+    ["Claims Process", "Life Insurance: Death, Maturity, Accidental benefit.", "General Insurance: Intimation, assessment, settlement.", "POSP Role: Assist clients and submit documents."],
+    ["Role of POSP", "Solicit policies, explain features, collect documents, assist claims.", "Limitations: Cannot collect unauthorized cash or issue policies independently."],
+    ["Ethics & Compliance", "Avoid misrepresentation, maintain confidentiality, follow KYC & AML.", "Adhere to IRDAI regulations."],
+    ["Life Insurance Products", "Term, Endowment, ULIPs, Money Back.", "Optional Riders: Accidental Death, Critical Illness, Waiver of Premium."],
+    ["General Insurance Products", "Motor, Health, Home & Property, Travel, Business."],
+    ["IRDAI POSP Certification", "Eligibility: 10th pass + training + exam.", "Benefits: Authorized to solicit policies, POSP code, company resources."],
+    ["Premium Calculation", "Life: Age, sum assured, term, health.", "General: Asset value, risk type, coverage.", "POSP Role: Explain premium breakdown and tax benefits."],
+    ["Documentation & Record Keeping", "Required: KYC, medical history, proposal forms.", "Best Practices: Maintain copies, submit promptly, follow up."],
+    ["Summary & Best Practices", "Follow regulations, avoid misrepresentation, assist clients, maintain records.", "Goal: Build trust, ensure compliance, promote awareness."]
+
+/* ================== GENERATE MODULES ================== */
+const tabsDiv = document.getElementById("tabs");
+const modulesDiv = document.getElementById("modules");
+
+for (let i = 0; i < TOTAL_MODULES; i++) {
+    // Tabs
+    const btn = document.createElement("button");
+    btn.id = `tab${i+1}`;
+    btn.className = "tab-btn" + (i === 0 ? " active" : " locked");
+    btn.innerText = `Module ${i+1}`;
+    btn.onclick = () => showModule(i+1);
+    btn.disabled = i !== 0;
+    tabsDiv.appendChild(btn);
+
+    // Module content
+    const div = document.createElement("div");
+    div.id = `module${i+1}`;
+    div.className = "module-content" + (i === 0 ? " active" : "");
+
+    const subContentHTML = moduleContents[i].map(item => `<li>${item}</li>`).join("");
+    div.innerHTML = `
+        <h2>📘 Module ${i+1}</h2>
+        ${moduleContents[i][1]} <!-- Large HTML content -->
+        <p>Each module requires approximately <b>60 minutes</b>.</p>
+        <button class="next-btn" onclick="completeModule(${i+1})">
+            ✔ Mark Module ${i+1} Complete
+        </button>
+    `;
+        modulesDiv.appendChild(div);
+}
+
+/* ================== MODULE LOGIC ================== */
+function showModule(n) {
+    if (n > 1 && !localStorage.getItem(`module${n-1}Done`)) {
+        document.getElementById("moduleLockMsg").innerText = "⚠ Complete previous module first.";
+        return;
+    }
+
+    document.getElementById("moduleLockMsg").innerText = "";
+
+    document.querySelectorAll(".module-content").forEach(m => m.classList.remove("active"));
+    document.querySelectorAll(".tab-btn").forEach(t => t.classList.remove("active"));
+
+    document.getElementById(`module${n}`).classList.add("active");
+    document.getElementById(`tab${n}`).classList.add("active");
+}
+
+function completeModule(n) {
+    localStorage.setItem(`module${n}Done`, true);
+    const tab = document.getElementById(`tab${n}`);
+    tab.classList.add("completed");
+
+    if (n < TOTAL_MODULES) {
+        const nextTab = document.getElementById(`tab${n+1}`);
+        nextTab.disabled = false;
+        nextTab.classList.remove("locked");
+        showModule(n + 1);
+    } else {
+        alert("All modules completed. Complete 15 hours to unlock exam.");
+    }
+}
+
+/* ================== EXAM UNLOCK ================== */
+function checkExamUnlock() {
+    let allDone = true;
+    for (let i = 1; i <= TOTAL_MODULES; i++) {
+        if (!localStorage.getItem(`module${i}Done`)) {
+            allDone = false;
+            break;
+        }
+    }
+    if (allDone && totalSeconds >= REQUIRED_SECONDS) {
+        document.getElementById("examBtn").style.display = "inline-block";
+        localStorage.setItem("examUnlocked", true);
+    }
+}
+
+/* ================== PAGE LOAD RESTORE ================== */
+window.onload = () => {
+    updateTimer();
+    for (let i = 1; i <= TOTAL_MODULES; i++) {
+        if (localStorage.getItem(`module${i}Done`)) {
+            const tab = document.getElementById(`tab${i}`);
+            tab.disabled = false;
+            tab.classList.remove("locked");
+            tab.classList.add("completed");
+        }
+    }
+    if (localStorage.getItem("examUnlocked") === "true") {
+        document.getElementById("examBtn").style.display = "inline-block";
+    }
+};
+
+/* ================== GO TO EXAM ================== */
+function goToExam() {
+    const email = "{{ email }}"; // Flask variable
+    window.location.href = "/exam_page/" + encodeURIComponent(email);
+}
+</script>
+<script>function showSubTab(id) {
+    document.querySelectorAll(".sub-tab-content")
+        .forEach(el => el.classList.remove("active"));
+
+    document.querySelectorAll(".sub-tab-btn")
+        .forEach(btn => btn.classList.remove("active"));
+
+    document.getElementById(id).classList.add("active");
+    event.target.classList.add("active");
+}
+</script>
+
+</html>
