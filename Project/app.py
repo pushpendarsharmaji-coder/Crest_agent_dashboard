@@ -40,9 +40,9 @@ app.secret_key = "secret123"
 
 def get_db():
     conn = mysql.connector.connect(
-        host="127.0.0.1",
-        user="root",
-        password="Ps499932@",
+        host="database-1.cuh68eog8q9a.us-east-1.rds.amazonaws.com",
+        user="admin",
+        password="Ps499932",
         database="agent_kyc_document",
         port=3306,
         autocommit=True
@@ -1657,5 +1657,6 @@ def certificate():
 # ---------------- RUN ----------------
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)
+
 
 
