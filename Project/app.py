@@ -39,14 +39,20 @@ app.secret_key = "secret123"
 # ---------------- DATABASE ----------------
 
 def get_db():
-    conn = mysql.connector.connect(
-        host="127.0.0.1",
-        user="root",
-        password="Ps499932@",
-        database="agent_kyc_document",
-        autocommit=True
-    )
-    return conn, conn.cursor(dictionary=True)
+    try:
+        conn = mysql.connector.connect(
+            host="database-1.cuh68eog8q9a.us-east-1.rds.amazonaws.com",
+            user="admin",
+            password="Ps5638806",
+            database="agent_kyc_documents",  # Make sure this matches your RDS DB
+            port=3306,
+            autocommit=True
+        )
+        cursor = conn.cursor(dictionary=True)
+        return conn, cursor
+    except mysql.connector.Error as e:
+        print("DB CONNECTION ERROR:", e)
+        return None, None
 otp_store = {}           # store OTP
 verified_emails = {}     # store verified emails
 # ---------------- PASSWORD GENERATOR ----------------
@@ -1656,3 +1662,4 @@ def certificate():
 # ---------------- RUN ----------------
 if __name__ == "__main__":
     app.run(debug=True)
+
