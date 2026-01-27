@@ -39,15 +39,19 @@ app.secret_key = "secret123"
 # ---------------- DATABASE ----------------
 
 def get_db():
-    conn = mysql.connector.connect(
-        host="database-1.cuh68eog8q9a.us-east-1.rds.amazonaws.com",
-        user="admin",
-        password="Ps5638806",
-        database="agent_kyc_document",
-        port=3306,
-        autocommit=True
-    )
-    return conn, conn.cursor(dictionary=True)
+    try:
+        conn = mysql.connector.connect(
+            host="database-1.cuh68eog8q9a.us-east-1.rds.amazonaws.com",
+            user="admin",
+            password="Ps5638806",
+            database="agent_kyc_document",
+            port=3306,
+            autocommit=True
+        )
+        return conn, conn.cursor(dictionary=True)
+    except mysql.connector.Error as e:
+        print("DB CONNECTION ERROR:", e)
+        return None, None
 otp_store = {}           # store OTP
 verified_emails = {}     # store verified emails
 # ---------------- PASSWORD GENERATOR ----------------
@@ -1658,6 +1662,7 @@ def certificate():
 if __name__ == "__main__":
     app.debug = True  # enable debug mode for detailed errors
     app.run(host="0.0.0.0") 
+
 
 
 
