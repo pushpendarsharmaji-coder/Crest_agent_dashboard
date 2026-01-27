@@ -44,6 +44,7 @@ def get_db():
         user="root",
         password="Ps499932@",
         database="agent_kyc_document",
+        port=3306,
         autocommit=True
     )
     return conn, conn.cursor(dictionary=True)
@@ -1656,4 +1657,5 @@ def certificate():
 # ---------------- RUN ----------------
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)
+
 
