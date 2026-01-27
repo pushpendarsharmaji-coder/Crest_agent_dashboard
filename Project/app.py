@@ -1660,8 +1660,9 @@ def certificate():
 
 # ---------------- RUN ----------------
 if __name__ == "__main__":
-    app.debug = True  # enable debug mode for detailed errors
-    app.run(host="0.0.0.0") 
+    app.debug = True  # Show full errors in the browser
+    app.run(host="0.0.0.0", port=5000)
+
 
 
 
