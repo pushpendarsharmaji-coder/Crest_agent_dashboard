@@ -1656,7 +1656,9 @@ def certificate():
 
 # ---------------- RUN ----------------
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.debug = True  # enable debug mode for detailed errors
+    app.run(host="0.0.0.0") 
+
 
 
 
