@@ -21,7 +21,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
 from datetime import datetime
 import os
-
+from mysql.connector import IntegrityError
 
 # ---------------- CONFIG ----------------
 CLIENT_ID = "a0dd7a8c-dad5-4a70-ad9a-efa2a5961e4d"
@@ -39,20 +39,16 @@ app.secret_key = "secret123"
 # ---------------- DATABASE ----------------
 
 def get_db():
-    try:
-        conn = mysql.connector.connect(
-            host="database-1.cuh68eog8q9a.us-east-1.rds.amazonaws.com",
-            user="admin",
-            password="Ps5638806",
-            database="agent_kyc_documents",  # Make sure this matches your RDS DB
-            port=3306,
-            autocommit=True
-        )
-        cursor = conn.cursor(dictionary=True)
-        return conn, cursor
-    except mysql.connector.Error as e:
-        print("DB CONNECTION ERROR:", e)
-        return None, None
+    conn = mysql.connector.connect(
+        host="database-1.cuh68eog8q9a.us-east-1.rds.amazonaws.com",
+        user="admin",
+        password="Ps5638806",
+        database="agent_kyc_document",
+        port=3306,
+        autocommit=True
+    )
+    cursor = conn.cursor(dictionary=True)
+    return conn, cursor
 otp_store = {}           # store OTP
 verified_emails = {}     # store verified emails
 # ---------------- PASSWORD GENERATOR ----------------
@@ -153,7 +149,7 @@ def login():
 # ---------------- SIGNUP ROUTE ----------------
 
 
-from mysql.connector import IntegrityError
+
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
@@ -544,20 +540,7 @@ def send_email(to_email, subject, body_text, pdf_bytes=None, filename=None):
         print("Email Error:", e)
         return False
 
-# ---------------- MySQL ----------------
-def get_db():
-    conn = mysql.connector.connect(
-        host="127.0.0.1",
-        user="root",
-        password="Ps499932@",
-        database="agent_kyc_document",
-        autocommit=True
-    )
-    return conn, conn.cursor(dictionary=True)
 
-# ---------------- OTP STORE ----------------
-# Optional: you can also store OTP in DB
-otp_store = {}  
 
 
 
@@ -1653,13 +1636,6 @@ def certificate():
     )
 
 
-
-
-
-
-
-
 # ---------------- RUN ----------------
 if __name__ == "__main__":
-    app.run(debug=True)
-
+    app.run(host="0.0.0.0", port=80, debug=True)
